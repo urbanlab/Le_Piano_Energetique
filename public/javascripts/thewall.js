@@ -4,14 +4,18 @@ var bar;
 window.onload = function WindowLoad(event) {
     //document.getElementById("container").innerHTML+= "new content";
     circle = new ProgressBar.Circle('#circleContainer', {
-        color: '#FCB03C',
-        strokeWidth: 3,
+        color: 'yellow',
+        strokeWidth: 15,
         trailWidth: 1,
+        trailColor: 'black',
         text: {
             value: '0'
+
         }
+
+
     });
-    circle.animate(1, {
+    circle.animate(0.63, {
         // Duration for animation in milliseconds
         // Default: 800
         duration: 1200,
@@ -20,26 +24,21 @@ window.onload = function WindowLoad(event) {
         // Default: 'linear'
         easing: 'easeInOut',
 
-        // See #custom-animations section
-        // Built-in shape passes reference to itself and a custom attachment
-        // object to step function
-        from: { color: '#FF0000' },
-        to: { color: '#FFFF00' },
-        step: function(state, circle, attachment) {
-            circle.path.setAttribute('stroke', state.color);
-            circle.value = (state.value);
-        }
-    });
-    circle.setText("50 %");
-    //circle.set(0.5);
-
-    bar = new ProgressBar.Path('#line-path', {
-        easing: 'easeInOut',
-        duration: 1400
-    });
         
-        bar.set(0);
-        bar.animate(-0.5);
+    });
+    circle.setText("63 %");
+    //circle.set(0.5);
+    circle.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+    circle.text.style.fontSize = '2.5rem';
+    this.circle.text.color = 'yellow';
+
+    // bar = new ProgressBar.Path('#line-path', {
+    //     easing: 'easeInOut',
+    //     duration: 1400
+    // });
+        
+    // bar.set(0);
+    // bar.animate(-0.5);
 }
 
 var bgImageArray = ["lonely.jpg", "uluwatu.jpg", "carezza-lake.jpg", "batu-bolong-temple.jpg"],
@@ -59,7 +58,7 @@ function backgroundSequence() {
 		setTimeout(function(){ 
 			// document.documentElement.style.background = "url(" + base + bgImageArray[k] + ") no-repeat center center fixed";
 			document.documentElement.style.background = "url(" + localBase + localImageArray[k] + ") no-repeat center center fixed";
-            document.documentElement.style.backgroundSize ="cover";
+            document.documentElement.style.backgroundSize = "cover";
 		if ((k + 1) === localImageArray.length) { 
             setTimeout(function() { backgroundSequence() }, (secs * 1000))} else { k++; }			
 		}, (secs * 1000) * i)	
@@ -88,7 +87,7 @@ var socket = io.connect('http://192.168.81.11/');
       var intValue = parseInt(data);
       circle.set(intValue/100);
       circle.setText(data + " %");
-      bar.set(-intValue/100);
+    //   bar.set(-intValue/100);
       
       if (intValue < 20){
           if (lastBackground != 5)
