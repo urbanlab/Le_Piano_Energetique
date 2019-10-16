@@ -85,7 +85,6 @@ console.log("connection to server...");
 
 var socket = io.connect('http://192.168.81.11/');
     socket.on('display', function (data) {
-      console.log('new value from admin : ',  data);
       var intValue = parseInt(data);
       circle.set(intValue/100);
       circle.setText(data + " %");
