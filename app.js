@@ -7,6 +7,8 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var ProgressBar = require('progressbar.js')
+
 
 var app = express();
 

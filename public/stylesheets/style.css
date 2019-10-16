@@ -1,3 +1,12 @@
+html {
+  margin: 0;
+  background-size: cover;
+  background: url("../images/1.jpg") no-repeat center center fixed;
+  /* background-blend-mode: darken;  */
+  transition: 3s;
+}
+
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
@@ -5,9 +14,31 @@ body {
 a {
   color: #00B7FF; }
 
-#container {
-  margin: 20px;
-  width: 200px;
-  height: 200px;
+  /** DATA VIZ CSS **/
+
+#circleContainer {
+  float:right;
+  width: 244px;
+  height: 244px;
+  margin: 0 40px;
+}
+
+#lineContainer {
+  float:right;
+  width: 70px;
+  height: 244px;
+  position: relative;
+}
+
+#verticalBar {
+  position: absolute;
+  z-index: 1;
+  margin: 0,0,0,0;
+}
+
+#mediumLine {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 0 -20px;
 }
 /*# sourceMappingURL=style.css.map */
