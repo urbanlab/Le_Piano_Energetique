@@ -6,15 +6,12 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
+var adminRouter = require("./routes/admin");
 var usersRouter = require('./routes/users');
 
 var ProgressBar = require('progressbar.js')
-// const Firmata = require("firmata");
-// const board = new Firmata("systemName");
-
 var app = express();
 var server = require('http').Server(app);
-// var server = require('http').createServer(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +30,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/admin', adminRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -52,9 +50,87 @@ app.use(function(err, req, res, next) {
 });
 
 /**
+ * DATA HANDLING
+ */
+
+var heaterValue = 0.0;
+var fridgePerformance = 0;
+var isThermostat = false;
+var isEcoMousseurs = false;
+var isEcoMousseurCuisine = false;
+var isFridgeCleaned = false;
+var isPotCovered = false;
+var isLedBulbs = false;
+
+
+function getHeaterPercent(){
+  // 17 to 23 degrees * 3.7 %
+  return heaterValue * 3.7;
+}
+
+
+/**
+ * ARDUINO FIRMATA
+ * 
+ * 
+ */
+
+// const Serialport = require("serialport");
+// const Firmata = require("firmata");
+// const board = new Firmata(new Serialport(path="/dev/cu.usbmodem14201"));
+
+// board.on("ready", () => {
+//   console.log("arduino ready");
+// })
+
+// var five = require("johnny-five"),
+//     board = new five.Board();
+
+// board.on("ready",function(){
+//   console.log("johnny ringo!");
+  // const strobe = new five.Pin(2);
+  
+  // ["high", "low"].forEach(function(state) {
+  //   strobe.on(state, function() {
+  //     if (events.indexOf(state) === -1) {
+  //       console.log("Event emitted for:", state, "on", this.addr);
+  //       events.push(state);
+  //     }
+  //   });
+  // });
+
+  // strobe.query(function(state) {
+  //   console.log(state);
+  // });
+
+//   potentiometer = new five.Sensor({
+//     pin: "A0",
+//     freq: 250
+//   });
+
+//   // Inject the `sensor` hardware into
+//   // the Repl instance's context;
+//   // allows direct command line access
+//   board.repl.inject({
+//     pot: potentiometer
+//   });
+
+//   // "data" get the current reading from the potentiometer
+//   potentiometer.on("data", function() {
+//     if (parseInt(this.value) != fridgePerformance){
+//       fridgePerformance = this.value;
+//       console.log(this.value);
+//       console.log(typeof value)
+//     }
+//   });
+// });
+
+
+/**
  * WEB SOCKETS
  * 
  * Real Time communications between server and client
+ * 
  * 
  */
 
@@ -64,13 +140,12 @@ server.listen(80);
 
 // When a client connects, we note it in the console
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
   console.log('CLIENT CONNECTED!');
-  socket.on('my other event', function (data) {
-    console.log(data);
+  socket.emit('test index', "rien");
+  socket.on('admin', function (data) {
+    console.log("admin value", data);
+    socket.broadcast.emit('display', data);
   });
 });
 
 module.exports = app;
-
-// server.listen(8080);

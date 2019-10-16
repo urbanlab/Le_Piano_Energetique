@@ -1,7 +1,7 @@
 html {
   margin: 0;
   background: url("../images/1.jpg") no-repeat center center fixed;
-  transition: 5s; }
+  transition: 3s; }
 
 body {
   padding: 50px;
@@ -27,7 +27,7 @@ a {
   z-index: 1; }
 
 #mediumLine {
-  z-index: 2;
+  z-index: 45;
   margin: 0 0 0 -20px; }
 
 /*# sourceMappingURL=style.css.map */

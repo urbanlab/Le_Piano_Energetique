@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <script src="/javascripts/rangeslider.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel='stylesheet' href='/stylesheets/admin.css' />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div class="slidecontainer">
+        <div class="slider">
+            <output id="rangevalue">50</output>
+          <input type = "range" min="0" max="100" />
+          
+        </div>
+   </div>
+  </body>
+  <script>
+    var socket = io.connect('http://192.168.81.11');
+        socket.on('news', function (data) {
+        socket.emit('ADMIN event', { my: 'data' });
+    });
+
+    $(function() {
+      var rangePercent = $('[type="range"]').val();
+      $('[type="range"]').on('change input', function() {
+        rangePercent = $('[type="range"]').val();
+        $('output').text(rangePercent);
+        $('[type="range"]').css('filter', 'hue-rotate(-' + rangePercent + 'deg)');
+        
+        socket.emit('admin', rangePercent);
+        socket.broadcast.emit('admin', rangePercent);
+        console.log("new value ", rangePercent);
+      });
+    });
+  </script>
+</html>

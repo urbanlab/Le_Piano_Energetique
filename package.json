@@ -12,9 +12,12 @@
     "express": "~4.16.1",
     "firmata": "^2.0.0",
     "http-errors": "~1.6.3",
+    "johnny-five": "^1.3.1",
+    "jquery": "^3.4.1",
     "morgan": "~1.9.1",
     "node-sass-middleware": "0.11.0",
     "progressbar.js": "^1.0.1",
+    "rangeslider.js": "^2.3.3",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
   }
