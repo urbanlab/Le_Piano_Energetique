@@ -7,10 +7,14 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var ProgressBar = require('progressbar.js')
 
+var ProgressBar = require('progressbar.js')
+// const Firmata = require("firmata");
+// const board = new Firmata("systemName");
 
 var app = express();
+var server = require('http').Server(app);
+// var server = require('http').createServer(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,4 +51,26 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/**
+ * WEB SOCKETS
+ * 
+ * Real Time communications between server and client
+ * 
+ */
+
+// Loading socket.io
+var io = require('socket.io')(server);
+server.listen(80);
+
+// When a client connects, we note it in the console
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  console.log('CLIENT CONNECTED!');
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
 module.exports = app;
+
+// server.listen(8080);
