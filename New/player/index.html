@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script> <!-- include the sockets.io CDN -->
+</head>
+<body>
+
+  <p><input type="button" onclick="CrossfadeSample.toggle();" value="Play/Pause">
+Drums <input type="range" min="0" max="100" value="100" oninput="CrossfadeSample.crossfade(this);"> Organ</p>
+
+  <button id="play" disabled>PLAY</button>
+  <audio src="files/drums.wav" ></audio>
+  <audio src="files/frigo.wav" ></audio>
+  <audio src="files/chauffage.wav" ></audio>
+  <!-- Start of 'client-side' javascript -->
+  <script>
+
+
+
+
+      const file1 = 'files/drums.wav';
+      const file2 = 'files/frigo.wav';
+
+      const context = new AudioContext();
+      const playButton = document.querySelector('#play');
+
+      var audioBuffer1;
+      var audioBuffer2;
+
+      function loadFiles(){};
+
+      window.fetch(file1)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+          playButton.disabled = false;
+          audioBuffer1 = audioBuffer;
+        });
+      window.fetch(file2)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+          playButton.disabled = false;
+          audioBuffer2 = audioBuffer;
+        });
+
+        playButton.onclick = () => play(audioBuffer1);
+        playButton.onclick = () => play(audioBuffer2);
+
+      function play(audioBuffer) {
+        const source = context.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(context.destination);
+        source.start();
+      }
+
+
+
+
+///////////////////////////////////////////////////////
+
+
+
+
+    var CrossfadeSample = {playing:false};
+
+    CrossfadeSample.play = function() {
+      // Create two sources.
+      // this.ctl1 = createSource(BUFFERS.drums);
+      // this.ctl2 = createSource(BUFFERS.organ);
+      this.ctl1 = createSource(audioBuffer1);
+      this.ctl2 = createSource(audioBuffer2);
+      // Mute the second source.
+      this.ctl1.gainNode.gain.value = 0;
+      // Start playback in a loop
+      if (!this.ctl1.source.start) {
+        this.ctl1.source.noteOn(0);
+        this.ctl2.source.noteOn(0);
+      } else {
+        this.ctl1.source.start(0);
+        this.ctl2.source.start(0);
+      }
+
+      function createSource(buffer) {
+        var source = context.createBufferSource();
+        var gainNode = context.createGain ? context.createGain() : context.createGainNode();
+        source.buffer = buffer;
+        // Turn on looping
+        source.loop = true;
+        // Connect source to gain.
+        source.connect(gainNode);
+        // Connect gain to destination.
+        gainNode.connect(context.destination);
+
+        return {
+          source: source,
+          gainNode: gainNode
+        };
+      }
+    };
+
+    CrossfadeSample.stop = function() {
+      if (!this.ctl1.source.stop) {
+        this.ctl1.source.noteOff(0);
+        this.ctl2.source.noteOff(0);
+      } else {
+        this.ctl1.source.stop(0);
+        this.ctl2.source.stop(0);
+      }
+    };
+
+    // Fades between 0 (all source 1) and 1 (all source 2)
+    CrossfadeSample.crossfade = function(element) {
+      var x = parseInt(element.value) / parseInt(element.max);
+      // Use an equal-power crossfading curve:
+      var gain1 = Math.cos(x * 0.5*Math.PI);
+      var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
+      this.ctl1.gainNode.gain.value = gain1;
+      this.ctl2.gainNode.gain.value = gain2;
+    };
+
+    CrossfadeSample.toggle = function() {
+      this.playing ? this.stop() : this.play();
+      this.playing = !this.playing;
+    };
+
+
+
+
+
+
+    //
+    // const audioBuffer1 = 'files/drums.wav';
+    // const audioBuffer2 = 'files/frigo.wav';
+    //
+    // const arrayOfAudioBuffers = [audioBuffer1, audioBuffer2];
+    // const context = new AudioContext();
+    //
+    // function play(audioBuffer) {
+    //   const source = context.createBufferSource();
+    //   source.buffer = audioBuffer;
+    //   source.connect(context.destination);
+    //   source.start();
+    // }
+    //
+    // for (let i = 0; i < arrayOfAudioBuffers.length; i++) {
+    //   play(arrayOfAudioBuffers[i]);
+    // }
+
+
+
+
+
+  </script>
+</body>
+</html>
