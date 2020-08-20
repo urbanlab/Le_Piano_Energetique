@@ -1,0 +1,33 @@
+html {
+  margin: 0;
+  background: url("../images/1.jpg") no-repeat center center fixed;
+  transition: 3s; }
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF; }
+
+#circleContainer {
+  float: right;
+  width: 244px;
+  height: 244px;
+  margin: 0 40px; }
+
+#lineContainer {
+  float: right;
+  width: 70px;
+  height: 244px;
+  position: relative; }
+
+#verticalBar {
+  position: absolute;
+  z-index: 1; }
+
+#mediumLine {
+  z-index: 45;
+  margin: 0 0 0 -20px; }
+
+/*# sourceMappingURL=style.css.map */
