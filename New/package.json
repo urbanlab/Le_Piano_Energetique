@@ -1,0 +1,16 @@
+{
+  "name": "regime-energetique",
+  "version": "1.0.0",
+  "main": "app.js",
+  "description": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "express": "4.17.1",
+    "johnny-five": "2.0.0",
+    "socket.io": "2.3.0"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
