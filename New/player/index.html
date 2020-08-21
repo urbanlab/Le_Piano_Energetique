@@ -38,6 +38,9 @@
   ////////////////// SOCKET IO /////////////////////
   let socket = io("localhost:3000");
 
+  socket.on("inter1",function(value){
+    console.log(value);
+  });
 
   socket.on("data", function (data) {
 
