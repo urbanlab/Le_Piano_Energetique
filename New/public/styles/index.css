@@ -7,8 +7,12 @@ body {
   overflow: hidden;
 }
 
-#unicornContainer,
-#rocketContainer,
+img {
+  object-fit: contain;
+}
+
+#background,
+#plantbubblesContainer,
 #tickContainer,
 #worldContainer,
 #hillsContainer {
