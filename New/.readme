@@ -1,5 +1,0 @@
-
-
-Lancer chrome avec cette commande pour permettre la diffusion de sons sans l'action de l'utilisateur
-
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required 
