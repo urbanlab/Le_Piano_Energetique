@@ -31,18 +31,39 @@
 
   sound1.play();
   sound2.play();
-  sound3.play();
+  // sound3.play();
 
 
 
   ////////////////// SOCKET IO /////////////////////
   let socket = io("localhost:3000");
 
-  var arduinoData;
 
-  socket.on("data", function (val) {
-    arduinoData = val;
-    console.log(arduinoData);
+  socket.on("data", function (data) {
+
+    data.forEach(function(input){
+      if(input.name=='inter1'){
+
+      }
+      if(input.name=='inter2'){
+
+      }
+      if(input.name=='inter3'){
+
+      }
+      if(input.name=='inter4'){
+
+      }
+      if(input.name=='inter5'){
+
+      }
+      if(input.name=='sensor1'){
+        sound1.volume(input.val/1023);
+      }
+      if(input.name=='sensor2'){
+        sound2.volume(input.val/1023);
+      }
+    });
   });
 
 
