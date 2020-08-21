@@ -22,8 +22,8 @@ socket.on("inter2", function (val) {
   console.log("inter2 : " + val);
 });
 
-runPlantAnimation(2);
-runAnimation("plantbubbles")
+runPlantAnimation(3);
+// runAnimation("plantbubbles")
 
 
 var backgroundElement = document.getElementById("background");
