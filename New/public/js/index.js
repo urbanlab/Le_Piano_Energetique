@@ -22,7 +22,42 @@ socket.on("inter2", function (val) {
   console.log("inter2 : " + val);
 });
 
-runAnimation("plantbubbles");
+runPlantAnimation(2);
+runAnimation("plantbubbles")
+
+
+var backgroundElement = document.getElementById("background");
+localImageArray = ["1.png", "2.png", "3.png", "4.png","5.png"],
+localBase = "/assets/backgrounds/"
+secs = 5;
+localImageArray.forEach(function(img){
+    new Image().src = localBase + img; 
+    // caches images, avoiding white flash between background replacements
+});
+
+function backgroundSequence() {
+	window.clearTimeout();
+	var k = 0;
+	for (i = 0; i < localImageArray.length; i++) {
+		setTimeout(function(){ 
+			// document.documentElement.style.background = "url(" + base + bgImageArray[k] + ") no-repeat center center fixed";
+			backgroundElement.style.background = "url(" + localBase + localImageArray[k] + ") no-repeat center center fixed";
+      backgroundElement.style.backgroundSize = "cover";
+		if ((k + 1) === localImageArray.length) { 
+            setTimeout(function() { backgroundSequence() }, (secs * 1000))} else { k++; }			
+		}, (secs * 1000) * i)	
+	}
+}
+
+var lastBackground = 1;
+function changeBackground(index){
+    lastBackground = index;
+    window.clearTimeout();
+    backgroundElement.style.background = "url(" + localBase + localImageArray[index-1] + ") no-repeat center center fixed";
+    backgroundElement.style.backgroundSize ="cover";
+}
+
+backgroundSequence();
 // runAnimation("rocket");
 // runAnimation("tick");
 // runAnimation("world");

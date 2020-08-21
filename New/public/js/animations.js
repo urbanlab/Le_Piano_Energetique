@@ -8,6 +8,16 @@ function runAnimation(fileName) {
   });
 }
 
+function runPlantAnimation(number) {
+  bodymovin.loadAnimation({
+    container: document.getElementById("plantContainer"),
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    path: "assets/usine/etat" + number + ".json",
+  });
+}
+
 function fadeIn(id) {
   var el = document.getElementById(id);
   el.classList.add("show");

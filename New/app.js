@@ -3,6 +3,7 @@ let http = require('http');
 let express = require('express');
 let io = require('socket.io');
 let five = require("johnny-five");
+const open = require('open');
 
 // Receives data from an arduino and send it to its clients via socket.io
 // Arduino board must be connected and have the code 'standardFirmata' uploaded into it
@@ -100,7 +101,10 @@ board.on("ready", function() {
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function(req, res){
   console.log('LISTENING ON PORT ' + port);
+  open('http://localhost:3000', {app: ['google chrome', '--kiosk --autoplay-policy=no-user-gesture-required --start-fullscreen']});
 });
+
+
 
 // Set up socket.io to 'listen'
 io = io.listen(server);
