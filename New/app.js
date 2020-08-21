@@ -4,6 +4,9 @@ let express = require('express');
 let io = require('socket.io');
 let five = require("johnny-five");
 
+// Receives data from an arduino and send it to its clients via socket.io
+// Arduino board must be connected and have the code 'standardFirmata' uploaded into it
+
 // Create board instance
 let board = new five.Board();
 // Create app instance
@@ -19,7 +22,9 @@ var arduinoData = [
   { name: 'inter4', val:0  },
   { name: 'inter5', val:0  },
   { name: 'sensor1', val:0  },
-  { name: 'sensor2', val:0  }
+  { name: 'sensor2', val:0  },
+  { name: 'touch1', val:0  },
+  { name: 'touch2', val:0  }
 ];
 
 
@@ -45,34 +50,45 @@ board.on("ready", function() {
 
   var inter1 = new five.Pin(3);
   inter1.read(function(error, value) { arduinoData[0].val = value; });
-  inter1.on("high",function(){io.emit('inter1',1);});
-  inter1.on("low",function(){io.emit('inter1',0);});
+  inter1.on("high",function(){io.emit('inter1',1); });
+  inter1.on("low",function(){io.emit('inter1',0); });
 
   var inter2 = new five.Pin(4);
   inter2.read(function(error, value) { arduinoData[1].val = value; });
-  inter2.on("high",function(){io.emit('inter2',1);});
-  inter2.on("low",function(){io.emit('inter2',0);});
+  inter2.on("high",function(){io.emit('inter2',1); });
+  inter2.on("low",function(){io.emit('inter2',0); });
 
   var inter3 = new five.Pin(5);
   inter3.read(function(error, value) { arduinoData[2].val = value; });
-  inter3.on("high",function(){io.emit('inter3',1);});
-  inter3.on("low",function(){io.emit('inter3',0);});
+  inter3.on("high",function(){io.emit('inter3',1); });
+  inter3.on("low",function(){io.emit('inter3',0); });
 
   var inter4 = new five.Pin(6);
   inter4.read(function(error, value) { arduinoData[3].val = value; });
-  inter4.on("high",function(){io.emit('inter4',1);});
-  inter4.on("low",function(){io.emit('inter4',0);});
+  inter4.on("high",function(){io.emit('inter4',1); });
+  inter4.on("low",function(){io.emit('inter4',0); });
 
   var inter5 = new five.Pin(7);
   inter5.read(function(error, value) { arduinoData[4].val = value; });
-  inter5.on("high",function(){io.emit('inter5',1);});
-  inter5.on("low",function(){io.emit('inter5',0);});
+  inter5.on("high",function(){io.emit('inter5',1); });
+  inter5.on("low",function(){io.emit('inter5',0); });
 
   var pot1 = new five.Sensor("A0");
   pot1.on("change", function() { arduinoData[5].val = this.value; });
 
   var pot2 = new five.Sensor("A1");
   pot2.on("change", function() { arduinoData[6].val = this.value; });
+
+  var touch1 = new five.Pin(8);
+  touch1.read(function(error, value) { arduinoData[7].val = value; });
+  touch1.on("high",function(){io.emit('touch1',1); });
+  touch1.on("low",function(){io.emit('touch1',0); });
+
+  var touch2 = new five.Pin(9);
+  touch2.read(function(error, value) { arduinoData[8].val = value; });
+  touch2.on("high",function(){io.emit('touch2',1); });
+  touch2.on("low",function(){io.emit('touch2',0); });
+
 
   setInterval(() => {
     io.emit('data', arduinoData);
