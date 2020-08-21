@@ -7,7 +7,25 @@ body {
   overflow: hidden;
 }
 
-#lottieContainer {
+#unicornContainer,
+#rocketContainer,
+#tickContainer,
+#worldContainer,
+#hillsContainer {
+  background-color: transparent;
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.show {
+  opacity: 1;
+  transition: opacity 2000ms;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 2000ms;
 }
