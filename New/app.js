@@ -30,7 +30,7 @@ var arduinoData = [
 
 // Set the app instance to read the public directory
 // Will find index.html
-app.use(express.static(__dirname + '/player'));
+app.use(express.static(__dirname + '/public'));
 
 // board.on
 board.on("ready", function() {
