@@ -12,7 +12,6 @@ let app = new express();
 // Set the port number
 let port = 3000;
 
-
 var arduinoData = [
   { name: 'inter1', val:0  },
   { name: 'inter2', val:0  },
@@ -46,24 +45,38 @@ board.on("ready", function() {
 
   var inter1 = new five.Pin(3);
   inter1.read(function(error, value) { arduinoData[0].val = value; });
+  inter1.on("high",function(){io.emit('inter1',1);});
+  inter1.on("low",function(){io.emit('inter1',0);});
+
   var inter2 = new five.Pin(4);
   inter2.read(function(error, value) { arduinoData[1].val = value; });
+  inter2.on("high",function(){io.emit('inter2',1);});
+  inter2.on("low",function(){io.emit('inter2',0);});
+
   var inter3 = new five.Pin(5);
   inter3.read(function(error, value) { arduinoData[2].val = value; });
+  inter3.on("high",function(){io.emit('inter3',1);});
+  inter3.on("low",function(){io.emit('inter3',0);});
+
   var inter4 = new five.Pin(6);
   inter4.read(function(error, value) { arduinoData[3].val = value; });
+  inter4.on("high",function(){io.emit('inter4',1);});
+  inter4.on("low",function(){io.emit('inter4',0);});
+
   var inter5 = new five.Pin(7);
   inter5.read(function(error, value) { arduinoData[4].val = value; });
+  inter5.on("high",function(){io.emit('inter5',1);});
+  inter5.on("low",function(){io.emit('inter5',0);});
 
   var pot1 = new five.Sensor("A0");
   pot1.on("change", function() { arduinoData[5].val = this.value; });
+
   var pot2 = new five.Sensor("A1");
   pot2.on("change", function() { arduinoData[6].val = this.value; });
 
   setInterval(() => {
-    console.log(arduinoData);
     io.emit('data', arduinoData);
-  }, 500);
+  }, 50);
 
 });
 
