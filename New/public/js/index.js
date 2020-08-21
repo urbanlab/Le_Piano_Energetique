@@ -23,7 +23,7 @@ socket.on("inter2", function (val) {
 });
 
 runPlantAnimation(3);
-// runAnimation("plantbubbles")
+// runAnimation("rocket")
 
 
 var backgroundElement = document.getElementById("background");
@@ -63,7 +63,7 @@ backgroundSequence();
 // runAnimation("world");
 // // runAnimation("hills");
 
-// fadeIn("rocketContainer");
+fadeIn("rocketContainer");
 // fadeOut("tickContainer");
 // fadeOut("worldContainer");
 // fadeIn("unicornContainer");
