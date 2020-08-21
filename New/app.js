@@ -101,7 +101,7 @@ board.on("ready", function() {
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function(req, res){
   console.log('LISTENING ON PORT ' + port);
-  open('http://localhost:3000', {app: ['google chrome', '--kiosk --autoplay-policy=no-user-gesture-required --start-fullscreen']});
+  open('http://localhost:3000', {app: ['google-chrome', '--kiosk', '--autoplay-policy=no-user-gesture-required --start-fullscreen']});
 });
 
 

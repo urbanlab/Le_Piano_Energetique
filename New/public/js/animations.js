@@ -4,6 +4,7 @@ function runAnimation(fileName) {
     renderer: "svg",
     loop: true,
     autoplay: true,
+
     path: "assets/" + fileName + ".json",
   });
 }
@@ -14,8 +15,20 @@ function runPlantAnimation(number) {
     renderer: "svg",
     loop: true,
     autoplay: true,
-    path: "assets/usine/etat" + number + ".json",
+    path: "assets/plant/etat" + number + ".json",
   });
+}
+
+function runRiverAnimation(beginState, endState, reverse = false) {
+  var anim = bodymovin.loadAnimation({
+    container: document.getElementById("riverContainer"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
+  });
+  anim.setDirection(reverse ? -1 : 1);
+  anim.play();
 }
 
 function fadeIn(id) {
