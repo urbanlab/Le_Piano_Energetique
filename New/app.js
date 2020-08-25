@@ -5,6 +5,7 @@ let io = require("socket.io");
 let five = require("johnny-five");
 const open = require("open");
 // const debounce = require("lodash/debounce");
+
 // Receives data from an arduino and send it to its clients via socket.io
 // Arduino board must be connected and have the code 'standardFirmata' uploaded into it
 
@@ -30,7 +31,11 @@ var arduinoData = [
 
 // Set the app instance to read the public directory
 // Will find index.html
-app.use(express.static(__dirname + "/public"));
+// app.use(express.static(__dirname + "/public"));
+
+app.use('/player', express.static(__dirname + "/public/player"));
+app.use('/visu', express.static(__dirname + "/public/visu"));
+
 
 // board.on
 board.on("ready", function () {

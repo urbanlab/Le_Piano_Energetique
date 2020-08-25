@@ -54,20 +54,20 @@
 
   // INTER 1
   socket.on("inter1",function(value){
-    console.log("inter1 "+value);
+    // console.log("inter1 "+value);
     if(value==1){ sound3.stop(); sound3.play(); }
     if(value==0){ sound3.stop(); }
   });
 
   // TOUCH 1
   socket.on("touch1",function(value){
-    console.log("touch1 "+value);
+    // console.log("touch1 "+value);
     if(value==1){ sound4.stop(); sound4.play(); }
   });
 
   // TOUCH 2
   socket.on("touch2",function(value){
-    console.log("touch2 "+value);
+    // console.log("touch2 "+value);
     if(value==1){ sound4.stop(); sound5.play(); }
   });
 
@@ -76,6 +76,12 @@
     data.forEach(function(input){
       if(input.name=='sensor1'){
         sound1.volume(input.val/1023);
+        if(input.val<500){
+
+        }
+        if(input.val>=500){
+
+        }
       }
       if(input.name=='sensor2'){
         sound2.volume(input.val/1023);
