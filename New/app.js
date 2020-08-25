@@ -42,71 +42,20 @@ board.on("ready", function () {
   // Connection message in the console
   console.log("ARDUINO BOARD READY STATE: TRUE");
 
-  const led = new five.Led(13);
-  led.blink(1000);
-
-  // // Create a sensor instance
-  // var sensor = new five.Sensor("A0");
-  //
-  // //On change
-  // sensor.on("change", function() {
-  //   io.emit('data', this.value);
-  // });
-
   var inter1 = new five.Pin(3);
-  inter1.read(function (error, value) {
-    arduinoData[0].val = value;
-  });
-  inter1.on("high", function () {
-    io.emit("inter1", 1);
-  });
-  inter1.on("low", function () {
-    io.emit("inter1", 0);
-  });
+  inter1.read(function (error, value) { arduinoData[0].val = value; });
 
   var inter2 = new five.Pin(4);
-  inter2.read(function (error, value) {
-    arduinoData[1].val = value;
-  });
-  inter2.on("high", function () {
-    io.emit("inter2", 1);
-  });
-  inter2.on("low", function () {
-    io.emit("inter2", 0);
-  });
+  inter2.read(function (error, value) { arduinoData[1].val = value; });
 
   var inter3 = new five.Pin(5);
-  inter3.read(function (error, value) {
-    arduinoData[2].val = value;
-  });
-  inter3.on("high", function () {
-    io.emit("inter3", 1);
-  });
-  inter3.on("low", function () {
-    io.emit("inter3", 0);
-  });
+  inter3.read(function (error, value) { arduinoData[2].val = value; });
 
   var inter4 = new five.Pin(6);
-  inter4.read(function (error, value) {
-    arduinoData[3].val = value;
-  });
-  inter4.on("high", function () {
-    io.emit("inter4", 1);
-  });
-  inter4.on("low", function () {
-    io.emit("inter4", 0);
-  });
+  inter4.read(function (error, value) { arduinoData[3].val = value; });
 
   var inter5 = new five.Pin(7);
-  inter5.read(function (error, value) {
-    arduinoData[4].val = value;
-  });
-  inter5.on("high", function () {
-    io.emit("inter5", 1);
-  });
-  inter5.on("low", function () {
-    io.emit("inter5", 0);
-  });
+  inter5.read(function (error, value) { arduinoData[4].val = value; });
 
   var pot1 = new five.Sensor("A0");
   pot1.on("change", function () {
