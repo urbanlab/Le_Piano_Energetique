@@ -1,5 +1,5 @@
-let socket = io("192.168.81.27:3000");
-
+// let socket = io("192.168.61.122:3000");
+let socket = io();
 let defaultState = {
   inter1: 0,
   inter2: 0,
@@ -20,10 +20,23 @@ socket.on("inter1", function (val) {
 socket.on("inter2", function (val) {
   console.log("inter2 : " + val);
 });
+socket.on("inter3", function (val) {
+  console.log("inter3 : " + val);
+});
+socket.on("inter4", function (val) {
+  console.log("inter4 : " + val);
+});
+socket.on("inter5", function (val) {
+  console.log("inter5 : " + val);
+});
+socket.on("A0", function (val) {
+  console.log("A0 : " + val);
+});
+socket.on("A1", function (val) {
+  console.log("A1 : " + val);
+});
 
 runPlantAnimation(3);
-// runAnimation("rocket")
-
 runRiverAnimation(1, 3, true);
 
 var backgroundElement = document.getElementById("background");
@@ -62,13 +75,3 @@ function changeBackground(index) {
 }
 
 backgroundSequence();
-// runAnimation("rocket");
-// runAnimation("tick");
-// runAnimation("world");
-// // runAnimation("hills");
-
-fadeIn("rocketContainer");
-// fadeOut("tickContainer");
-// fadeOut("worldContainer");
-// fadeIn("unicornContainer");
-// fadeOut("hillsContainer");
