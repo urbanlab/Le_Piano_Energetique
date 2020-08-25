@@ -12,3 +12,14 @@ Lancer chrome avec cette commande pour permettre la diffusion de sons sans l'act
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required 
 
 Infos : https://www.chromium.org/developers/how-tos/run-chromium-with-flags 
+
+
+
+
+Droits ports USB pour Ubuntu : 
+
+sudo usermod -a -G dialout username
+sudo usermod -a -G tty username
+sudo su
+cd /dev
+chown username ttyACM0
