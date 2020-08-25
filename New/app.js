@@ -33,9 +33,8 @@ var arduinoData = [
 // Will find index.html
 // app.use(express.static(__dirname + "/public"));
 
-app.use('/player', express.static(__dirname + "/public/player"));
-app.use('/visu', express.static(__dirname + "/public/visu"));
-
+app.use("/player", express.static(__dirname + "/public/player"));
+app.use("/visu", express.static(__dirname + "/public/visu"));
 
 // board.on
 board.on("ready", function () {
@@ -97,7 +96,7 @@ board.on("ready", function () {
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function (req, res) {
   console.log("LISTENING ON PORT " + port);
-  open("http://localhost:3000", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+  open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
 });
 
 // Set up socket.io to 'listen'
