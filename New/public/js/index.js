@@ -40,8 +40,8 @@ function backgroundSequence() {
   for (i = 0; i < localImageArray.length; i++) {
     setTimeout(function () {
       // document.documentElement.style.background = "url(" + base + bgImageArray[k] + ") no-repeat center center fixed";
-      backgroundElement.style.background = "url(" + localBase + localImageArray[k] + ") no-repeat center center fixed";
-      backgroundElement.style.backgroundSize = "cover";
+      backgroundElement.style.background = "url(" + localBase + localImageArray[k] + "no-repeat center center fixed";
+      backgroundElement.style.backgroundSize = "contain";
       if (k + 1 === localImageArray.length) {
         setTimeout(function () {
           backgroundSequence();
