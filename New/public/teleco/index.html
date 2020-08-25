@@ -9,13 +9,39 @@
 </head>
 <body>
 
-  <input id="go" type="button" onclick="CrossfadeSample.toggle();" value="Play/Pause"> <br>
- <input type="range" min="0" max="100" value="100" oninput="CrossfadeSample.fader1(this);"> <br>
- <input type="range" min="0" max="100" value="100" oninput="CrossfadeSample.fader2(this);"> <br>
+  INTER 1<input type="checkbox" oninput="inter('inter1')"> <br>
+  INTER 2<input type="checkbox" oninput="inter('inter2')"> <br>
+  INTER 3<input type="checkbox" oninput="inter('inter3')"> <br>
+  INTER 4<input type="checkbox" oninput="inter('inter4')"> <br>
+  INTER 5<input type="checkbox" oninput="inter('inter5')"> <br>
+  <input type="range" min="0" max="100" value="0" oninput="pot('pot1', this);"> <br>
+  <input type="range" min="0" max="100" value="0" oninput="pot('pot2', this);"> <br>
+  <input type="button" oninput="touch('touch1')" value="touch 1"> <br>
+  <input type="button" oninput="touch('touch1')" value="touch 1"> <br>
+
 
   <script>
 
+  function inter(intername){
+    console.log(intername);
+  }
+  function pot(potname, element){
+    console.log(potname);
+    var x = parseInt(element.value) / parseInt(element.max);
+    console.log(element.value);
 
+  }
+
+
+//   CrossfadeSample.stop = function() {
+//   if (!this.ctl1.source.stop) {
+//     this.ctl1.source.noteOff(0);
+//     this.ctl2.source.noteOff(0);
+//   } else {
+//     this.ctl1.source.stop(0);
+//     this.ctl2.source.stop(0);
+//   }
+// };
 
 
   </script>

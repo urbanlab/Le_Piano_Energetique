@@ -34,7 +34,7 @@ var arduinoData = [
 // app.use(express.static(__dirname + "/public"));
 
 app.use("/player", express.static(__dirname + "/public/player"));
-app.use("/player", express.static(__dirname + "/public/teleco"));
+app.use("/teleco", express.static(__dirname + "/public/teleco"));
 app.use("/visu", express.static(__dirname + "/public/visu"));
 
 // board.on
