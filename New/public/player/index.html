@@ -12,25 +12,25 @@
 
   <script>
 
-// GESTURE REQUIRED FROM USER
-// Lancer chrome avec le flag ci dessous afin d'éviter les erreurs demandant une action utilisateur avant de lire du son
-// /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required
+  // GESTURE REQUIRED FROM USER
+  // Lancer chrome avec le flag ci dessous afin d'éviter les erreurs demandant une action utilisateur avant de lire du son
+  // /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required
 
   // SENSOR 1
   var sound_sensor1_Low = new Howl({ src: ['files/Chauffage A Low.mp3'], loop: true });
   var sound_sensor1_Mid = new Howl({ src: ['files/Chauffage B Mid.mp3'], loop: true });
   var sound_sensor1_High = new Howl({ src: ['files/Chauffage C High.mp3'], loop: true });
-  // sound_sensor1_Low.play();
-  // sound_sensor1_Mid.play();
-  // sound_sensor1_High.play();
+  sound_sensor1_Low.play();
+  sound_sensor1_Mid.play();
+  sound_sensor1_High.play();
 
   // SENSOR 2
   var sound_sensor2_Low = new Howl({ src: ['files/Frigo A Low.mp3'], loop: true });
   var sound_sensor2_Mid = new Howl({ src: ['files/Frigo B Mid.mp3'], loop: true });
   var sound_sensor2_High = new Howl({ src: ['files/Frigo C High.mp3'], loop: true });
-  // sound_sensor2_Low.play();
-  // sound_sensor2_Mid.play();
-  // sound_sensor2_High.play();
+  sound_sensor2_Low.play();
+  sound_sensor2_Mid.play();
+  sound_sensor2_High.play();
 
   // TOUCHS
   var sound_push1 = new Howl({ src: ['files/Push couvercle.mp3'], loop: false, volume: 1.0 });
@@ -46,7 +46,6 @@
 
   // INTER OBJECT
   function inter(intername,filename){
-
     var that = this;
     that.intername = intername;
     this.sound = new Howl({ src: ['files/'+filename], loop: true, volume: 1.0 });
@@ -62,7 +61,6 @@
         }
       });
     }
-
   }
 
   // INTERS
