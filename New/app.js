@@ -33,9 +33,8 @@ var arduinoData = [
 // Will find index.html
 // app.use(express.static(__dirname + "/public"));
 
-app.use('/player', express.static(__dirname + "/public/player"));
-app.use('/visu', express.static(__dirname + "/public/visu"));
-
+app.use("/player", express.static(__dirname + "/public/player"));
+app.use("/visu", express.static(__dirname + "/public/visu"));
 
 // board.on
 board.on("ready", function () {
