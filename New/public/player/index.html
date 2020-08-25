@@ -16,35 +16,31 @@
 // Lancer chrome avec le flag ci dessous afin d'éviter les erreurs demandant une action utilisateur avant de lire du son
 // /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required
 
+  var sound_sensor1_Low = new Howl({ src: ['files/Chauffage A Low.mp3'], loop: true });
+  var sound_sensor1_Mid = new Howl({ src: ['files/Chauffage B Mid.mp3'], loop: true });
+  var sound_sensor1_High = new Howl({ src: ['files/Chauffage C High.mp3'], loop: true });
 
-  var sound1 = new Howl({
-    src: ['files/drums.wav'],
-    volume: 0.8,
-    loop: true
-  });
-  var sound2 = new Howl({
-    src: ['files/frigo.wav'],
-    volume: 0.8,
-    loop: true
-  });
-  var sound3 = new Howl({
-    src: ['files/chauffage.wav'],
-    volume: 0.8,
-    loop: true
-  });
-  var sound4 = new Howl({
-    src: ['files/boite.wav'],
-    volume: 0.8,
-    loop: false
-  });
-  var sound5 = new Howl({
-    src: ['files/Ding.wav'],
-    volume: 0.8,
-    loop: false
-  });
+  // sound_sensor1_Low.play();
+  // sound_sensor1_Mid.play();
+  // sound_sensor1_High.play();
 
-  sound1.play();
-  sound2.play();
+  var sound_sensor2_Low = new Howl({ src: ['files/Frigo A Low.mp3'], loop: true });
+  var sound_sensor2_Mid = new Howl({ src: ['files/Frigo B Mid.mp3'], loop: true });
+  var sound_sensor2_High = new Howl({ src: ['files/Frigo C High.mp3'], loop: true });
+
+  // sound_sensor2_Low.play();
+  // sound_sensor2_Mid.play();
+  // sound_sensor2_High.play();
+
+  var sound_inter1 = new Howl({ src: ['files/Inter 1.mp3'], loop: true, volume: 1.0 });
+  var sound_inter2 = new Howl({ src: ['files/Inter 2.mp3'], loop: true, volume: 1.0 });
+  var sound_inter3 = new Howl({ src: ['files/Inter 3.mp3'], loop: true, volume: 1.0 });
+  var sound_inter4 = new Howl({ src: ['files/Inter 4.mp3'], loop: true, volume: 1.0 });
+  var sound_inter5 = new Howl({ src: ['files/Inter 5.mp3'], loop: true, volume: 1.0 });
+
+  var sound_push1 = new Howl({ src: ['files/Push couvercle.mp3'], loop: false, volume: 1.0 });
+  var sound_push2 = new Howl({ src: ['files/Push thermostatique.mp3'], loop: false, volume: 1.0 });
+
 
 
 
@@ -54,37 +50,73 @@
 
   // INTER 1
   socket.on("inter1",function(value){
-    // console.log("inter1 "+value);
-    if(value==1){ sound3.stop(); sound3.play(); }
-    if(value==0){ sound3.stop(); }
+    console.log('inter1 '+value)
+    if(value==1){ sound_inter1.stop(); sound_inter1.play(); }
+    if(value==0){ sound_inter1.stop(); }
+  });
+  // INTER 2
+  socket.on("inter2",function(value){
+    console.log('inter2 '+value)
+    if(value==1){ sound_inter2.stop(); sound_inter2.play(); }
+    if(value==0){ sound_inter2.stop(); }
+  });
+  // INTER 3
+  socket.on("inter3",function(value){
+    console.log('inter3 '+value)
+    if(value==1){ sound_inter3.stop(); sound_inter3.play(); }
+    if(value==0){ sound_inter3.stop(); }
+  });
+  // INTER 4
+  socket.on("inter4",function(value){
+    console.log('inter4 '+value)
+    if(value==1){ sound_inter4.stop(); sound_inter4.play(); }
+    if(value==0){ sound_inter4.stop(); }
+  });
+  // INTER 5
+  socket.on("inter5",function(value){
+    console.log('inter5 '+value)
+    if(value==1){ sound_inter5.stop(); sound_inter5.play(); }
+    if(value==0){ sound_inter5.stop(); }
   });
 
   // TOUCH 1
   socket.on("touch1",function(value){
     // console.log("touch1 "+value);
-    if(value==1){ sound4.stop(); sound4.play(); }
+    if(value==1){ sound_push1.stop(); sound_push1.play(); }
   });
 
   // TOUCH 2
   socket.on("touch2",function(value){
     // console.log("touch2 "+value);
-    if(value==1){ sound4.stop(); sound5.play(); }
+    if(value==1){ sound_push2.stop(); sound_push2.play(); }
   });
 
   // DATA - CONTINUOUS
   socket.on("data", function (data) {
     data.forEach(function(input){
       if(input.name=='sensor1'){
-        sound1.volume(input.val/1023);
-        if(input.val<500){
-
+        if(input.val<50){
+          sound_sensor1_Low.volume(1);
+          sound_sensor1_Mid.volume(input.val/50);
+          sound_sensor1_High.volume(0);
         }
-        if(input.val>=500){
-
+        if(input.val>=50){
+          sound_sensor1_Low.volume(-input.val/50 + 2);
+          sound_sensor1_Mid.volume(1);
+          sound_sensor1_High.volume(input.val/50 - 1);
         }
       }
       if(input.name=='sensor2'){
-        sound2.volume(input.val/1023);
+        if(input.val<50){
+          sound_sensor2_Low.volume(1);
+          sound_sensor2_Mid.volume(input.val/50);
+          sound_sensor2_High.volume(0);
+        }
+        if(input.val>=50){
+          sound_sensor2_Low.volume(-input.val/50 + 2);
+          sound_sensor2_Mid.volume(1);
+          sound_sensor2_High.volume(input.val/50 - 1);
+        }
       }
     });
   });

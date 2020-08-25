@@ -110,12 +110,12 @@ board.on("ready", function () {
 
   var pot1 = new five.Sensor("A0");
   pot1.on("change", function () {
-    arduinoData[5].val = this.value;
+    arduinoData[5].val = this.scaleTo(0, 100);
   });
 
   var pot2 = new five.Sensor("A1");
   pot2.on("change", function () {
-    arduinoData[6].val = this.value;
+    arduinoData[6].val = this.scaleTo(0, 100);
   });
 
   var touch1 = new five.Pin(8);
