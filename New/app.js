@@ -125,16 +125,11 @@ const server = http.createServer(app).listen(port, function (req, res) {
       await open("http://localhost:3000/visu", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen"] });
     } else {
       open("http://localhost:3000/player", {
-        app: [
-          "google-chrome",
-          // "--kiosk",
-          "--autoplay-policy=no-user-gesture-required",
-          "--start-fullscreen",
-          "--password-store=basic",
-        ],
-      }).then(() => {
-        open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen", "--password-store=basic"] });
+        app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen", "--password-store=basic", "http://localhost:3000/visu"],
       });
+      // .then(() => {
+      //   open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen", "--password-store=basic"] });
+      // });
     }
   });
 });

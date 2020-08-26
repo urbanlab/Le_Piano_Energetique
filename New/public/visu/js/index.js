@@ -33,11 +33,11 @@ var sampleArduinoData = [
 
 // processScores();
 socket.on("data", function (arduinoData) {
-  currentState.onOffWater = Math.round(arduinoData[0].val * 100);
-  currentState.onOffHeater = Math.round(arduinoData[1].val * 100);
-  currentState.onOffLeds = Math.round(arduinoData[2].val * 100);
-  currentState.onOffFridge = Math.round(arduinoData[3].val * 100);
-  currentState.onOffOven = Math.round(arduinoData[4].val * 100);
+  currentState.onOffWater = Math.round(arduinoData[3].val * 100);
+  currentState.onOffHeater = Math.round(arduinoData[2].val * 100);
+  currentState.onOffLeds = Math.round(arduinoData[0].val * 100);
+  currentState.onOffFridge = Math.round(arduinoData[4].val * 100);
+  currentState.onOffOven = Math.round(arduinoData[1].val * 100);
   currentState.valueHeater = 100 - Math.round(arduinoData[5].val);
   currentState.valueFridge = 100 - Math.round(arduinoData[6].val);
   currentState.touchWater = Math.round(arduinoData[7].val * 100);
