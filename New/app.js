@@ -120,8 +120,8 @@ const server = http.createServer(app).listen(port, function (req, res) {
     console.log("YOUR OS : " + osName);
     // darwin = mac os
     if (osName == "darwin") {
-      // open("http://localhost:3000/teleco", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
-      // open("http://localhost:3000/player", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+      await open("http://localhost:3000/teleco", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen"] });
+      await open("http://localhost:3000/player", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen"] });
       await open("http://localhost:3000/visu", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen"] });
     } else {
       open("http://localhost:3000/player", {
