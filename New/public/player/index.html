@@ -17,24 +17,24 @@
   // /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required
 
   // POT 1
-  var sound_pot1_Low = new Howl({ src: ['files/Chauffage A Low.aif'], loop: true });
-  var sound_pot1_Mid = new Howl({ src: ['files/Chauffage B Mid.aif'], loop: true });
-  var sound_pot1_High = new Howl({ src: ['files/Chauffage C High.aif'], loop: true });
+  var sound_pot1_Low = new Howl({ src: ['files/Chauffage A Low.mp3'], loop: true });
+  var sound_pot1_Mid = new Howl({ src: ['files/Chauffage B Mid.mp3'], loop: true });
+  var sound_pot1_High = new Howl({ src: ['files/Chauffage C High.mp3'], loop: true });
   sound_pot1_Low.play();
   sound_pot1_Mid.play();
   sound_pot1_High.play();
 
   // POT 2
-  var sound_pot2_Low = new Howl({ src: ['files/Frigo A Low.aif'], loop: true });
-  var sound_pot2_Mid = new Howl({ src: ['files/Frigo B Mid.aif'], loop: true });
-  var sound_pot2_High = new Howl({ src: ['files/Frigo C High.aif'], loop: true });
+  var sound_pot2_Low = new Howl({ src: ['files/Frigo A Low.mp3'], loop: true });
+  var sound_pot2_Mid = new Howl({ src: ['files/Frigo B Mid.mp3'], loop: true });
+  var sound_pot2_High = new Howl({ src: ['files/Frigo C High.mp3'], loop: true });
   sound_pot2_Low.play();
   sound_pot2_Mid.play();
   sound_pot2_High.play();
 
   // TOUCHS
-  var sound_push1 = new Howl({ src: ['files/Push Couvercle.aif'], loop: false, volume: 1.0 });
-  var sound_push2 = new Howl({ src: ['files/Push Robinet Thermo.aif'], loop: false, volume: 1.0 });
+  var sound_push1 = new Howl({ src: ['files/Push Couvercle.mp3'], loop: false, volume: 1.0 });
+  var sound_push2 = new Howl({ src: ['files/Push Robinet Thermo.mp3'], loop: false, volume: 1.0 });
 
   // INTERS
   // var sound_inter1 = new Howl({ src: ['files/Inter 1.mp3'], loop: true, volume: 1.0 });
@@ -65,11 +65,11 @@
 
   // INTERS
   var all_Inters = new Array();
-  all_Inters.push(new inter('inter1', 'Inter 1 Leds.aif'));
-  all_Inters.push(new inter('inter2', 'Inter 2 Four.aif'));
-  all_Inters.push(new inter('inter3', 'Inter 3 Radiateur.aif'));
-  all_Inters.push(new inter('inter4', 'Inter 4 Eau.aif'));
-  all_Inters.push(new inter('inter5', 'Inter 5 Frigo.aif'));
+  all_Inters.push(new inter('inter1', 'Inter 1 Leds.mp3'));
+  all_Inters.push(new inter('inter2', 'Inter 2 Four.mp3'));
+  all_Inters.push(new inter('inter3', 'Inter 3 Radiateur.mp3'));
+  all_Inters.push(new inter('inter4', 'Inter 4 Eau.mp3'));
+  all_Inters.push(new inter('inter5', 'Inter 5 Frigo.mp3'));
 
 
   ////////////////// SOCKET IO /////////////////////
