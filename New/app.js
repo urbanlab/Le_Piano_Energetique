@@ -6,12 +6,6 @@ let five = require("johnny-five");
 const open = require("open");
 const getos = require("getos");
 
-let osName;
-getos(function (e, os) {
-  if (e) return console.log(e);
-  osName = os.os;
-});
-
 // Receives data from an arduino and send it to its clients via socket.io
 // Arduino board must be connected and have the code 'standardFirmata' uploaded into it
 
@@ -119,15 +113,30 @@ setInterval(() => {
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function (req, res) {
   console.log("LISTENING ON PORT " + port);
-  console.log("YOUR OS : " + osName);
-  // darwin = mac os
-  if (osName == "darwin") {
-    // open("http://localhost:3000/teleco", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
-    // open("http://localhost:3000/player", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
-    open("http://localhost:3000/visu", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
-  } else {
-    open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
-  }
+
+  getos(async function (e, os) {
+    if (e) return console.log(e);
+    const osName = os.os;
+    console.log("YOUR OS : " + osName);
+    // darwin = mac os
+    if (osName == "darwin") {
+      // open("http://localhost:3000/teleco", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+      // open("http://localhost:3000/player", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+      await open("http://localhost:3000/visu", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen"] });
+    } else {
+      open("http://localhost:3000/player", {
+        app: [
+          "google-chrome",
+          // "--kiosk",
+          "--autoplay-policy=no-user-gesture-required",
+          "--start-fullscreen",
+          "--password-store=basic",
+        ],
+      }).then(() => {
+        open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required", "--start-fullscreen", "--password-store=basic"] });
+      });
+    }
+  });
 });
 
 // Set up socket.io to 'listen'
