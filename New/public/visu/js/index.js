@@ -92,7 +92,6 @@ function choosePlantAnimation() {
 // }
 
 function chooseRiverAnimation() {
-  // runRiverAnimation(1, 2);
   if (waterScore.between(0, 50, true)) runRiverAnimation(1, 2);
-  else if (waterScore.between(51, 100, true)) runRiverAnimation2(1, 2);
+  else if (waterScore.between(51, 100, true)) runRiverAnimation(1, 2, true);
 }

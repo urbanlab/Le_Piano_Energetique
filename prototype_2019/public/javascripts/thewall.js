@@ -41,12 +41,10 @@ window.onload = function WindowLoad(event) {
     // bar.animate(-0.5);
 }
 
-var bgImageArray = ["lonely.jpg", "uluwatu.jpg", "carezza-lake.jpg", "batu-bolong-temple.jpg"],
 localImageArray = ["1.jpg", "2.jpg", "3.jpg", "4.jpg","5.jpg"],
-base = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/full-",
 localBase = "../images/"
 secs = 5;
-bgImageArray.forEach(function(img){
+localImageArray.forEach(function(img){
     new Image().src = base + img; 
     // caches images, avoiding white flash between background replacements
 });

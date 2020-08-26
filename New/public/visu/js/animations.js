@@ -40,7 +40,7 @@ function runRiverAnimation(beginState, endState, reverse = false) {
     riverAnimation.destroy();
     console.log("destroy river anim");
   }
-  console.log("running river anim : ", beginState, "vers", endState);
+  console.log("running river anim : ", beginState, "vers", endState, reverse);
   riverAnimation = bodymovin.loadAnimation({
     container: document.getElementById("riverContainer"),
     renderer: "svg",
@@ -48,7 +48,6 @@ function runRiverAnimation(beginState, endState, reverse = false) {
     autoplay: false,
     path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
   });
-  // riverAnimation.path = "assets/river/etat" + beginState + "-vers-etat" + endState + ".json";
   riverAnimation.setDirection(reverse ? -1 : 1);
   riverAnimation.play();
   lastState = endState;
