@@ -23,11 +23,13 @@ var arduinoData = [
   { name: "inter3", val: 0 },
   { name: "inter4", val: 0 },
   { name: "inter5", val: 0 },
-  { name: "sensor1", val: 0 },
-  { name: "sensor2", val: 0 },
+  { name: "pot1", val: 0 },
+  { name: "pot2", val: 0 },
   { name: "touch1", val: 0 },
-  { name: "touch2", val: 0 },
+  { name: "touch2", val: 0 }
 ];
+var telecoData = [];
+var telecoConnected = false;
 
 // Set the app instance to read the public directory
 // Will find index.html
@@ -89,10 +91,12 @@ board.on("ready", function () {
     io.emit("touch2", 0);
   });
 
-  setInterval(() => {
-    io.emit("data", arduinoData);
-  }, 50);
 });
+
+setInterval(() => {
+  if(telecoConnected==true){ io.emit("data", telecoData); }
+  else{ io.emit("data", arduinoData); }
+}, 50);
 
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function (req, res) {
@@ -111,4 +115,12 @@ io.on("connection", function (socket) {
   socket.on("disconnect", function () {
     console.log("SOCKET.IO DISCONNECTED");
   });
+
+  // TELECO
+  socket.on('dataTeleco', function(data){
+    telecoConnected = true;
+    telecoData = data;
+  });
+
+
 });

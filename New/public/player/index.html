@@ -16,21 +16,21 @@
   // Lancer chrome avec le flag ci dessous afin d'éviter les erreurs demandant une action utilisateur avant de lire du son
   // /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required
 
-  // SENSOR 1
-  var sound_sensor1_Low = new Howl({ src: ['files/Chauffage A Low.mp3'], loop: true });
-  var sound_sensor1_Mid = new Howl({ src: ['files/Chauffage B Mid.mp3'], loop: true });
-  var sound_sensor1_High = new Howl({ src: ['files/Chauffage C High.mp3'], loop: true });
-  sound_sensor1_Low.play();
-  sound_sensor1_Mid.play();
-  sound_sensor1_High.play();
+  // POT 1
+  var sound_pot1_Low = new Howl({ src: ['files/Chauffage A Low.mp3'], loop: true });
+  var sound_pot1_Mid = new Howl({ src: ['files/Chauffage B Mid.mp3'], loop: true });
+  var sound_pot1_High = new Howl({ src: ['files/Chauffage C High.mp3'], loop: true });
+  sound_pot1_Low.play();
+  sound_pot1_Mid.play();
+  sound_pot1_High.play();
 
-  // SENSOR 2
-  var sound_sensor2_Low = new Howl({ src: ['files/Frigo A Low.mp3'], loop: true });
-  var sound_sensor2_Mid = new Howl({ src: ['files/Frigo B Mid.mp3'], loop: true });
-  var sound_sensor2_High = new Howl({ src: ['files/Frigo C High.mp3'], loop: true });
-  sound_sensor2_Low.play();
-  sound_sensor2_Mid.play();
-  sound_sensor2_High.play();
+  // POT 2
+  var sound_pot2_Low = new Howl({ src: ['files/Frigo A Low.mp3'], loop: true });
+  var sound_pot2_Mid = new Howl({ src: ['files/Frigo B Mid.mp3'], loop: true });
+  var sound_pot2_High = new Howl({ src: ['files/Frigo C High.mp3'], loop: true });
+  sound_pot2_Low.play();
+  sound_pot2_Mid.play();
+  sound_pot2_High.play();
 
   // TOUCHS
   var sound_push1 = new Howl({ src: ['files/Push couvercle.mp3'], loop: false, volume: 1.0 });
@@ -54,6 +54,7 @@
       arduinoData.forEach((input) => {
         if(input.name==that.intername){
           if(input.val!=that.val){
+            console.log(that.intername);
             if(input.val==1){ that.sound.stop(); that.sound.play(); console.log('playing '+ that.intername ); }
             if(input.val==0){ that.sound.stop(); }
             that.val = input.val;
@@ -96,28 +97,28 @@
     });
 
     arduinoData.forEach(function(input){
-      if(input.name=='sensor1'){
+      if(input.name=='pot1'){
         if(input.val<50){
-          sound_sensor1_Low.volume(1);
-          sound_sensor1_Mid.volume(input.val/50);
-          sound_sensor1_High.volume(0);
+          sound_pot1_Low.volume(1);
+          sound_pot1_Mid.volume(input.val/50);
+          sound_pot1_High.volume(0);
         }
         if(input.val>=50){
-          sound_sensor1_Low.volume(-input.val/50 + 2);
-          sound_sensor1_Mid.volume(1);
-          sound_sensor1_High.volume(input.val/50 - 1);
+          sound_pot1_Low.volume(-input.val/50 + 2);
+          sound_pot1_Mid.volume(1);
+          sound_pot1_High.volume(input.val/50 - 1);
         }
       }
-      if(input.name=='sensor2'){
+      if(input.name=='pot2'){
         if(input.val<50){
-          sound_sensor2_Low.volume(1);
-          sound_sensor2_Mid.volume(input.val/50);
-          sound_sensor2_High.volume(0);
+          sound_pot2_Low.volume(1);
+          sound_pot2_Mid.volume(input.val/50);
+          sound_pot2_High.volume(0);
         }
         if(input.val>=50){
-          sound_sensor2_Low.volume(-input.val/50 + 2);
-          sound_sensor2_Mid.volume(1);
-          sound_sensor2_High.volume(input.val/50 - 1);
+          sound_pot2_Low.volume(-input.val/50 + 2);
+          sound_pot2_Mid.volume(1);
+          sound_pot2_High.volume(input.val/50 - 1);
         }
       }
     });
