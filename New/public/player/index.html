@@ -33,8 +33,8 @@
   sound_pot2_High.play();
 
   // TOUCHS
-  var sound_push1 = new Howl({ src: ['files/Push couvercle.mp3'], loop: false, volume: 1.0 });
-  var sound_push2 = new Howl({ src: ['files/Push thermostatique.mp3'], loop: false, volume: 1.0 });
+  var sound_push1 = new Howl({ src: ['files/Push Couvercle.mp3'], loop: false, volume: 1.0 });
+  var sound_push2 = new Howl({ src: ['files/Push Robinet Thermo.mp3'], loop: false, volume: 1.0 });
 
   // INTERS
   // var sound_inter1 = new Howl({ src: ['files/Inter 1.mp3'], loop: true, volume: 1.0 });
@@ -54,7 +54,6 @@
       arduinoData.forEach((input) => {
         if(input.name==that.intername){
           if(input.val!=that.val){
-            console.log(that.intername);
             if(input.val==1){ that.sound.stop(); that.sound.play(); console.log('playing '+ that.intername ); }
             if(input.val==0){ that.sound.stop(); }
             that.val = input.val;
@@ -66,11 +65,11 @@
 
   // INTERS
   var all_Inters = new Array();
-  all_Inters.push(new inter('inter1', 'Inter 1.mp3'));
-  all_Inters.push(new inter('inter2', 'Inter 2.mp3'));
-  all_Inters.push(new inter('inter3', 'Inter 3.mp3'));
-  all_Inters.push(new inter('inter4', 'Inter 4.mp3'));
-  all_Inters.push(new inter('inter5', 'Inter 5.mp3'));
+  all_Inters.push(new inter('inter1', 'Inter 1 Leds.mp3'));
+  all_Inters.push(new inter('inter2', 'Inter 2 Four.mp3'));
+  all_Inters.push(new inter('inter3', 'Inter 3 Radiateur.mp3'));
+  all_Inters.push(new inter('inter4', 'Inter 4 Eau.mp3'));
+  all_Inters.push(new inter('inter5', 'Inter 5 Frigo.mp3'));
 
 
   ////////////////// SOCKET IO /////////////////////
