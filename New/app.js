@@ -4,7 +4,13 @@ let express = require("express");
 let io = require("socket.io");
 let five = require("johnny-five");
 const open = require("open");
-// const debounce = require("lodash/debounce");
+const getos = require("getos");
+
+let osName;
+getos(function (e, os) {
+  if (e) return console.log(e);
+  osName = os.os;
+});
 
 // Receives data from an arduino and send it to its clients via socket.io
 // Arduino board must be connected and have the code 'standardFirmata' uploaded into it
@@ -26,7 +32,7 @@ var arduinoData = [
   { name: "pot1", val: 0 },
   { name: "pot2", val: 0 },
   { name: "touch1", val: 0 },
-  { name: "touch2", val: 0 }
+  { name: "touch2", val: 0 },
 ];
 var telecoData = [];
 var telecoConnected = false;
@@ -45,19 +51,29 @@ board.on("ready", function () {
   console.log("ARDUINO BOARD READY STATE: TRUE");
 
   var inter1 = new five.Pin(3);
-  inter1.read(function (error, value) { arduinoData[0].val = value; });
+  inter1.read(function (error, value) {
+    arduinoData[0].val = value;
+  });
 
   var inter2 = new five.Pin(4);
-  inter2.read(function (error, value) { arduinoData[1].val = value; });
+  inter2.read(function (error, value) {
+    arduinoData[1].val = value;
+  });
 
   var inter3 = new five.Pin(5);
-  inter3.read(function (error, value) { arduinoData[2].val = value; });
+  inter3.read(function (error, value) {
+    arduinoData[2].val = value;
+  });
 
   var inter4 = new five.Pin(6);
-  inter4.read(function (error, value) { arduinoData[3].val = value; });
+  inter4.read(function (error, value) {
+    arduinoData[3].val = value;
+  });
 
   var inter5 = new five.Pin(7);
-  inter5.read(function (error, value) { arduinoData[4].val = value; });
+  inter5.read(function (error, value) {
+    arduinoData[4].val = value;
+  });
 
   var pot1 = new five.Sensor("A0");
   pot1.on("change", function () {
@@ -90,18 +106,28 @@ board.on("ready", function () {
   touch2.on("low", function () {
     io.emit("touch2", 0);
   });
-
 });
 
 setInterval(() => {
-  if(telecoConnected==true){ io.emit("data", telecoData); }
-  else{ io.emit("data", arduinoData); }
+  if (telecoConnected == true) {
+    io.emit("data", telecoData);
+  } else {
+    io.emit("data", arduinoData);
+  }
 }, 50);
 
 // Begin 'listening' on the pre defined port number (3000)
 const server = http.createServer(app).listen(port, function (req, res) {
   console.log("LISTENING ON PORT " + port);
-  open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+  console.log("YOUR OS : " + osName);
+  // darwin = mac os
+  if (osName == "darwin") {
+    // open("http://localhost:3000/teleco", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+    // open("http://localhost:3000/player", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+    open("http://localhost:3000/visu", { app: ["google chrome", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+  } else {
+    open("http://localhost:3000/visu", { app: ["google-chrome", "--kiosk", "--autoplay-policy=no-user-gesture-required --start-fullscreen"] });
+  }
 });
 
 // Set up socket.io to 'listen'
@@ -117,10 +143,8 @@ io.on("connection", function (socket) {
   });
 
   // TELECO
-  socket.on('dataTeleco', function(data){
+  socket.on("dataTeleco", function (data) {
     telecoConnected = true;
     telecoData = data;
   });
-
-
 });

@@ -19,7 +19,8 @@ body {
 #plantContainer1,
 #plantContainer2,
 #plantContainer3,
-#riverContainer {
+#riverContainer,
+#riverContainer2 {
   background-color: transparent;
   position: absolute;
   top: 0;

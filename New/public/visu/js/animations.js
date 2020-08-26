@@ -35,20 +35,10 @@ function showPlantAnimation(index) {
 var riverAnimation;
 var lastState = 1;
 
-// function initRiverAnimation() {
-//   riverAnimation = bodymovin.loadAnimation({
-//     container: document.getElementById("riverContainer"),
-//     renderer: "svg",
-//     loop: false,
-//     autoplay: false,
-//     path: "assets/river/etat" + 1 + "-vers-etat" + 3 + ".json",
-//   });
-// }
-// initRiverAnimation();
-
 function runRiverAnimation(beginState, endState, reverse = false) {
   if (riverAnimation !== undefined) {
     riverAnimation.destroy();
+    console.log("destroy river anim");
   }
   console.log("running river anim : ", beginState, "vers", endState);
   riverAnimation = bodymovin.loadAnimation({
@@ -58,10 +48,23 @@ function runRiverAnimation(beginState, endState, reverse = false) {
     autoplay: false,
     path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
   });
-  riverAnimation.path = "assets/river/etat" + beginState + "-vers-etat" + endState + ".json";
+  // riverAnimation.path = "assets/river/etat" + beginState + "-vers-etat" + endState + ".json";
   riverAnimation.setDirection(reverse ? -1 : 1);
   riverAnimation.play();
   lastState = endState;
+}
+
+function runRiverAnimation2(beginState, endState) {
+  console.log("running river anim : ", beginState, "vers", endState);
+  var riverAnimation2 = bodymovin.loadAnimation({
+    container: document.getElementById("riverContainer2"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
+  });
+  riverAnimation2.setDirection(-1);
+  riverAnimation2.play();
 }
 
 // function showRiverAnimation(state) {
@@ -111,14 +114,12 @@ function changeBackground(index) {
 // TRANSITIONS
 
 function fadeIn(id) {
-  console.log("fade in : ", id);
   var el = document.getElementById(id);
   el.classList.add("show");
   el.classList.remove("hide");
 }
 
 function fadeOut(id) {
-  console.log("fade out : ", id);
   var el = document.getElementById(id);
   el.classList.add("hide");
   el.classList.remove("show");

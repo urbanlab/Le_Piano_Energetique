@@ -1,14 +1,14 @@
-let socket = io("192.168.81.27:3000");
-// let socket = io();
+// let socket = io("192.168.81.27:3000");
+let socket = io();
 
 var waterScore = -1;
 var elecScore = -1;
 var globalScore = -1;
 
 let currentState = {
-  onOffWater: 100,
-  onOffHeater: 100,
-  onOffLeds: 100,
+  onOffWater: 0,
+  onOffHeater: 0,
+  onOffLeds: 0,
   onOffFridge: 0,
   onOffOven: 0,
 
@@ -94,5 +94,5 @@ function choosePlantAnimation() {
 function chooseRiverAnimation() {
   // runRiverAnimation(1, 2);
   if (waterScore.between(0, 50, true)) runRiverAnimation(1, 2);
-  else if (waterScore.between(51, 100, true)) runRiverAnimation(1, 2, true);
+  else if (waterScore.between(51, 100, true)) runRiverAnimation2(1, 2);
 }
