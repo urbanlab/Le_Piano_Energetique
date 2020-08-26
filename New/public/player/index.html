@@ -54,7 +54,6 @@
       arduinoData.forEach((input) => {
         if(input.name==that.intername){
           if(input.val!=that.val){
-            console.log(that.intername);
             if(input.val==1){ that.sound.stop(); that.sound.play(); console.log('playing '+ that.intername ); }
             if(input.val==0){ that.sound.stop(); }
             that.val = input.val;

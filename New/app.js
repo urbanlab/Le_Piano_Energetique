@@ -122,5 +122,12 @@ io.on("connection", function (socket) {
     telecoData = data;
   });
 
+  socket.on('touch1',function(data){
+    io.emit('touch1',data);
+  });
+  socket.on('touch2',function(data){
+    io.emit('touch2',data);
+  });
+
 
 });
