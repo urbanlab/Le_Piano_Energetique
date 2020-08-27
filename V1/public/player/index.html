@@ -36,14 +36,6 @@
   var sound_push1 = new Howl({ src: ['files/Push Robinet Thermo.mp3'], loop: false, volume: 1.0 });
   var sound_push2 = new Howl({ src: ['files/Push Couvercle.mp3'], loop: false, volume: 1.0 });
 
-  // INTERS
-  // var sound_inter1 = new Howl({ src: ['files/Inter 1.mp3'], loop: true, volume: 1.0 });
-  // var sound_inter2 = new Howl({ src: ['files/Inter 2.mp3'], loop: true, volume: 1.0 });
-  // var sound_inter3 = new Howl({ src: ['files/Inter 3.mp3'], loop: true, volume: 1.0 });
-  // var sound_inter4 = new Howl({ src: ['files/Inter 4.mp3'], loop: true, volume: 1.0 });
-  // var sound_inter5 = new Howl({ src: ['files/Inter 5.mp3'], loop: true, volume: 1.0 });
-
-
   // INTER OBJECT
   function inter(intername,filename){
     var that = this;
@@ -107,7 +99,6 @@
     arduinoData.forEach(function(input){
       if(input.name=='pot1'){
         if(input.val<50){
-          // sound_pot1_Low.volume(1);
           sound_pot1_Low.volume(input.val/100 +0.5);
           sound_pot1_Mid.volume(input.val/50);
           sound_pot1_High.volume(0);
@@ -120,7 +111,6 @@
       }
       if(input.name=='pot2'){
         if(input.val<50){
-          // sound_pot2_Low.volume(1);
           sound_pot2_Low.volume(input.val/100 +0.5);
           sound_pot2_Mid.volume(input.val/50);
           sound_pot2_High.volume(0);
