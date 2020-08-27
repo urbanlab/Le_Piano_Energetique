@@ -116,10 +116,8 @@ function displayDebug() {
 
 function toggleDebug() {
   if (document.getElementById("debugContainer").classList.contains("hide")) {
-    console.log("should show");
     fadeIn("debugContainer");
   } else {
-    console.log("should hide");
     fadeOut("debugContainer");
   }
 }
