@@ -23,3 +23,15 @@ sudo usermod -a -G tty username
 sudo su
 cd /dev
 chown username ttyACM0
+
+
+
+Visualisation : 192.168.0.100:3000/teleco
+Player Son : 192.168.0.100:3000/player
+Telecommande : 192.168.0.100:3000/teleco
+
+
+WIFI : 
+SSID : regime-energetique
+PASSWORD : regime2020
+
