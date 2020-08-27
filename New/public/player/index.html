@@ -54,12 +54,12 @@
       arduinoData.forEach((input) => {
         if(input.name==that.intername){
           if(input.val!=that.val){
-            if(input.val==1){
+            if(input.val==0){
               that.sound.stop();
               that.sound.play();
               that.sound.fade(0,1,200);
             }
-            if(input.val==0){
+            if(input.val==1){
               // that.sound.stop();
               that.sound.fade(1,0,1000);
             }

@@ -74,7 +74,7 @@ board.on("ready", function () {
     arduinoData[5].val = this.scaleTo(0, 100);
   });
 
-  var pot2 = new five.Sensor("A1");
+  var pot2 = new five.Sensor("A8");
   pot2.on("change", function () {
     arduinoData[6].val = this.scaleTo(0, 100);
   });
