@@ -26,7 +26,7 @@ var arduinoData = [
   { name: "pot1", val: 0 },
   { name: "pot2", val: 0 },
   { name: "touch1", val: 0 },
-  { name: "touch2", val: 0 },
+  { name: "touch2", val: 0 }
 ];
 var telecoData = [];
 var telecoConnected = false;
