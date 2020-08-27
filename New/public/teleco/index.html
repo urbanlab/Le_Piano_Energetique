@@ -9,15 +9,15 @@
     <!-- include the sockets.io CDN -->
   </head>
   <body>
-    INTER 1 - LEDS <input type="checkbox" oninput="inter('inter1', this)" /> <br />
-    INTER 2 - FOUR <input type="checkbox" oninput="inter('inter2', this)" /> <br />
-    INTER 3 - RADIATEUR <input type="checkbox" oninput="inter('inter3', this)" /> <br />
-    INTER 4 - ECOMOUSSEUR <input type="checkbox" oninput="inter('inter4', this)" /> <br />
-    INTER 5 - FRIGO DÉGIVRAGE <input type="checkbox" oninput="inter('inter5', this)" /> <br />
-    POT 1 - RADIATEUR <input type="range" min="0" max="100" value="0" oninput="pot('pot1', this);" /> <br />
-    POT 2 - FRIGO <input type="range" min="0" max="100" value="0" oninput="pot('pot2', this);" /> <br />
-    TOUCH 1 - ROBINET <input type="button" onclick="touch('touch1', this)" value=" " /> <br />
-    TOUCH 2 - COUVERCLE <input type="button" onclick="touch('touch2', this)" value=" " /> <br />
+    INTER 1 - LEDS <input type="checkbox" oninput="inter('inter1', this)" checked> <br/>
+    INTER 2 - FOUR <input type="checkbox" oninput="inter('inter2', this)" checked> <br/>
+    INTER 3 - RADIATEUR <input type="checkbox" oninput="inter('inter3', this)" checked> <br/>
+    INTER 4 - ECOMOUSSEUR <input type="checkbox" oninput="inter('inter4', this)" checked> <br/>
+    INTER 5 - FRIGO DÉGIVRAGE <input type="checkbox" oninput="inter('inter5', this)" checked> <br/>
+    POT 1 - RADIATEUR <input type="range" min="0" max="100" value="0" oninput="pot('pot1', this);" > <br/>
+    POT 2 - FRIGO <input type="range" min="0" max="100" value="0" oninput="pot('pot2', this);" > <br/>
+    TOUCH 1 - ROBINET <input type="button" onclick="touch('touch1', this)" value=" " > <br/>
+    TOUCH 2 - COUVERCLE <input type="button" onclick="touch('touch2', this)" value=" " > <br/>
 
     <script>
       var arduinoData = [
