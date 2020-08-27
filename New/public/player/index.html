@@ -57,7 +57,7 @@
             if(input.val==0){
               that.sound.stop();
               that.sound.play();
-              that.sound.fade(0,1,200);
+              that.sound.fade(0,1,0);
             }
             if(input.val==1){
               // that.sound.stop();
@@ -108,7 +108,8 @@
     arduinoData.forEach(function(input){
       if(input.name=='pot1'){
         if(input.val<50){
-          sound_pot1_Low.volume(1);
+          // sound_pot1_Low.volume(1);
+          sound_pot1_Low.volume(input.val/100 +0.5);
           sound_pot1_Mid.volume(input.val/50);
           sound_pot1_High.volume(0);
         }
@@ -120,7 +121,8 @@
       }
       if(input.name=='pot2'){
         if(input.val<50){
-          sound_pot2_Low.volume(1);
+          // sound_pot2_Low.volume(1);
+          sound_pot2_Low.volume(input.val/100 +0.5);
           sound_pot2_Mid.volume(input.val/50);
           sound_pot2_High.volume(0);
         }
