@@ -103,10 +103,11 @@ function displayDebug() {
   document.getElementById("globalScore").innerHTML = "Score global : " + globalScore;
   document.getElementById("waterScore").innerHTML = "Score eau : " + waterScore;
   document.getElementById("elecScore").innerHTML = "Score électricité : " + elecScore;
-  document.getElementById("onOffWater").innerHTML = "Inter 4 - Ecomousseur : " + currentState.onOffWater;
   document.getElementById("onOffLeds").innerHTML = "Inter 1 - Leds: " + currentState.onOffLeds;
-  document.getElementById("onOffFridge").innerHTML = "Inter 5 - Frigo dégivrage : " + currentState.onOffFridge;
   document.getElementById("onOffOven").innerHTML = "Inter 2 - Four : " + currentState.onOffOven;
+  document.getElementById("onOffHeater").innerHTML = "Inter 3 - Radiateur: " + currentState.onOffHeater;
+  document.getElementById("onOffWater").innerHTML = "Inter 4 - Ecomousseur : " + currentState.onOffWater;
+  document.getElementById("onOffFridge").innerHTML = "Inter 5 - Frigo dégivrage : " + currentState.onOffFridge;
   document.getElementById("valueHeater").innerHTML = "Pot 1 - Valeur chauffage : " + currentState.valueHeater;
   document.getElementById("valueFridge").innerHTML = "Pot 2 - Valeur frigo : " + currentState.valueFridge;
   document.getElementById("touchWater").innerHTML = "Touch 1 - robinet : " + currentState.touchWater;

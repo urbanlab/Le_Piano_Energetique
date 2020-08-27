@@ -41,12 +41,13 @@ body {
 
 #debugContainer {
   background-color: white;
-  width: 180px;
-  height: 250px;
+  width: auto;
+  height: auto;
   position: absolute;
   bottom: 0;
   left: 0;
   padding: 10px;
+  font-size: large;
 }
 
 label {
