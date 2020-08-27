@@ -1,87 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
-  <script src="lib/socket.io.js"></script> <!-- include the sockets.io CDN -->
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <script src="lib/socket.io.js"></script>
+    <!-- include the sockets.io CDN -->
+  </head>
+  <body>
+    INTER 1 - LEDS <input type="checkbox" oninput="inter('inter1', this)" /> <br />
+    INTER 2 - FOUR <input type="checkbox" oninput="inter('inter2', this)" /> <br />
+    INTER 3 - RADIATEUR <input type="checkbox" oninput="inter('inter3', this)" /> <br />
+    INTER 4 - ECOMOUSSEUR <input type="checkbox" oninput="inter('inter4', this)" /> <br />
+    INTER 5 - FRIGO DÉGIVRAGE <input type="checkbox" oninput="inter('inter5', this)" /> <br />
+    POT 1 - RADIATEUR <input type="range" min="0" max="100" value="0" oninput="pot('pot1', this);" /> <br />
+    POT 2 - FRIGO <input type="range" min="0" max="100" value="0" oninput="pot('pot2', this);" /> <br />
+    TOUCH 1 - ROBINET <input type="button" onclick="touch('touch1', this)" value=" " /> <br />
+    TOUCH 2 - COUVERCLE <input type="button" onclick="touch('touch2', this)" value=" " /> <br />
 
-  INTER 1 <input type="checkbox" oninput="inter('inter1', this)"> <br>
-  INTER 2 <input type="checkbox" oninput="inter('inter2', this)"> <br>
-  INTER 3 <input type="checkbox" oninput="inter('inter3', this)"> <br>
-  INTER 4 <input type="checkbox" oninput="inter('inter4', this)"> <br>
-  INTER 5 <input type="checkbox" oninput="inter('inter5', this)"> <br>
-  POT 1 <input type="range" min="0" max="100" value="0" oninput="pot('pot1', this);"> <br>
-  POT 2 <input type="range" min="0" max="100" value="0" oninput="pot('pot2', this);"> <br>
-  TOUCH 1 <input type="button" onclick="touch('touch1', this)" value=" "> <br>
-  TOUCH 2 <input type="button" onclick="touch('touch2', this)" value=" "> <br>
+    <script>
+      var arduinoData = [
+        { name: "inter1", val: 0 },
+        { name: "inter2", val: 0 },
+        { name: "inter3", val: 0 },
+        { name: "inter4", val: 0 },
+        { name: "inter5", val: 0 },
+        { name: "pot1", val: 0 },
+        { name: "pot2", val: 0 },
+        { name: "touch1", val: 0 },
+        { name: "touch2", val: 0 },
+      ];
 
+      // INTERS
+      function inter(intername, element) {
+        var interData = 0;
+        if (element.checked == true) {
+          interData = 1;
+        }
+        arduinoData.forEach((input, i) => {
+          if (input.name == intername) {
+            arduinoData[i].val = interData;
+          }
+        });
+        socket.emit("dataTeleco", arduinoData);
+      }
 
-  <script>
+      // POTS
+      function pot(potname, element) {
+        var potData = parseInt(element.value);
+        arduinoData.forEach((input, i) => {
+          if (input.name == potname) {
+            arduinoData[i].val = potData;
+          }
+        });
+        socket.emit("dataTeleco", arduinoData);
+      }
 
-  var arduinoData = [
-    { name: "inter1", val: 0 },
-    { name: "inter2", val: 0 },
-    { name: "inter3", val: 0 },
-    { name: "inter4", val: 0 },
-    { name: "inter5", val: 0 },
-    { name: "pot1", val: 0 },
-    { name: "pot2", val: 0 },
-    { name: "touch1", val: 0 },
-    { name: "touch2", val: 0 }
-  ];
+      // TOUCHS
+      function touch(touchname, element) {
+        arduinoData.forEach((input, i) => {
+          if (input.name == touchname) {
+            arduinoData[i].val = 1;
+          }
+        });
+        socket.emit(touchname, 1);
+        socket.emit("dataTeleco", arduinoData);
+        setTimeout(function () {
+          arduinoData.forEach((input, i) => {
+            if (input.name == touchname) {
+              arduinoData[i].val = 0;
+            }
+          });
+          socket.emit(touchname, 0);
+          socket.emit("dataTeleco", arduinoData);
+        }, 500);
+      }
 
-  // INTERS
-  function inter(intername, element){
-    var interData = 0;
-    if(element.checked==true){ interData = 1; }
-    arduinoData.forEach((input,i) => {
-      if(input.name==intername){ arduinoData[i].val = interData; }
-    });
-    socket.emit('dataTeleco',arduinoData);
-  }
+      let socket = io();
 
-  // POTS
-  function pot(potname, element){
-    var potData = parseInt(element.value);
-    arduinoData.forEach((input,i) => {
-      if(input.name==potname){ arduinoData[i].val = potData; }
-    });
-    socket.emit('dataTeleco',arduinoData);
-  }
-
-  // TOUCHS
-  function touch(touchname, element){
-    arduinoData.forEach((input,i) => {
-      if(input.name==touchname){ arduinoData[i].val = 1; }
-    });
-    socket.emit(touchname,1);
-    socket.emit('dataTeleco',arduinoData);
-    setTimeout(function(){
-      arduinoData.forEach((input,i) => {
-        if(input.name==touchname){ arduinoData[i].val = 0; }
+      // CONNECT
+      socket.on("connect", function () {
+        console.log("Connected to Server");
       });
-      socket.emit(touchname,0);
-      socket.emit('dataTeleco',arduinoData);
-    }, 500);
-  }
 
-
-  let socket = io("localhost:3000");
-
-  // CONNECT
-  socket.on('connect', function(){
-    console.log('Connected to Server');
-  });
-
-  socket.on('disconnect', function(){
-    console.log('Disconnected from Server');
-  });
-
-
-  </script>
-</body>
+      socket.on("disconnect", function () {
+        console.log("Disconnected from Server");
+      });
+    </script>
+  </body>
 </html>

@@ -31,7 +31,7 @@ var sampleArduinoData = [
   { name: "touch2", val: 0 },
 ];
 
-// processScores();
+processScores();
 socket.on("data", function (arduinoData) {
   currentState.onOffWater = Math.round(arduinoData[3].val * 100);
   currentState.onOffHeater = Math.round(arduinoData[2].val * 100);
@@ -69,6 +69,8 @@ function processScores() {
     console.log("New Water Score : ", waterScore);
     chooseRiverAnimation();
   }
+
+  displayDebug();
 }
 
 function chooseBackground() {
@@ -94,4 +96,29 @@ function choosePlantAnimation() {
 function chooseRiverAnimation() {
   if (waterScore.between(0, 50, true)) runRiverAnimation(1, 2);
   else if (waterScore.between(51, 100, true)) runRiverAnimation(1, 2, true);
+}
+
+// DEBUG
+function displayDebug() {
+  document.getElementById("globalScore").innerHTML = "Score global : " + globalScore;
+  document.getElementById("waterScore").innerHTML = "Score eau : " + waterScore;
+  document.getElementById("elecScore").innerHTML = "Score électricité : " + elecScore;
+  document.getElementById("onOffWater").innerHTML = "Inter 4 - Ecomousseur : " + currentState.onOffWater;
+  document.getElementById("onOffLeds").innerHTML = "Inter 1 - Leds: " + currentState.onOffLeds;
+  document.getElementById("onOffFridge").innerHTML = "Inter 5 - Frigo dégivrage : " + currentState.onOffFridge;
+  document.getElementById("onOffOven").innerHTML = "Inter 2 - Four : " + currentState.onOffOven;
+  document.getElementById("valueHeater").innerHTML = "Pot 1 - Valeur chauffage : " + currentState.valueHeater;
+  document.getElementById("valueFridge").innerHTML = "Pot 2 - Valeur frigo : " + currentState.valueFridge;
+  document.getElementById("touchWater").innerHTML = "Touch 1 - robinet : " + currentState.touchWater;
+  document.getElementById("touchLid").innerHTML = "Touch 2 - couvercle : " + currentState.touchLid;
+}
+
+function toggleDebug() {
+  if (document.getElementById("debugContainer").classList.contains("hide")) {
+    console.log("should show");
+    fadeIn("debugContainer");
+  } else {
+    console.log("should hide");
+    fadeOut("debugContainer");
+  }
 }
