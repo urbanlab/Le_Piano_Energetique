@@ -64,6 +64,7 @@
               that.sound.fade(1,0,1000);
             }
             that.val = input.val;
+            console.log(that.intername+' '+input.val);
           }
         }
       });
@@ -101,6 +102,8 @@
     all_Inters.forEach((inter) => {
       inter.update();
     });
+
+    console.log('pot1 '+arduinoData[5].val+' pot2 '+arduinoData[6].val);
 
     arduinoData.forEach(function(input){
       if(input.name=='pot1'){
