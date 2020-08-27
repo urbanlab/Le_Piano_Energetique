@@ -49,7 +49,7 @@
     var that = this;
     that.intername = intername;
     this.sound = new Howl({ src: ['files/'+filename], loop: true, volume: 1.0 });
-    this.val = 0;
+    this.val = -1;
     this.update = function(){
       arduinoData.forEach((input) => {
         if(input.name==that.intername){
@@ -60,7 +60,6 @@
               that.sound.fade(0,1,0);
             }
             if(input.val==1){
-              // that.sound.stop();
               that.sound.fade(1,0,1000);
             }
             that.val = input.val;
@@ -103,7 +102,7 @@
       inter.update();
     });
 
-    console.log('pot1 '+arduinoData[5].val+' pot2 '+arduinoData[6].val);
+   // console.log('pot1 '+arduinoData.find(input => input.name=="pot1").val+' pot2 '+arduinoData.find(input => input.name=="pot2").val);
 
     arduinoData.forEach(function(input){
       if(input.name=='pot1'){
