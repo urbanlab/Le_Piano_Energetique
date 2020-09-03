@@ -31,45 +31,92 @@ function showPlantAnimation(index) {
   fadeIn("plantContainer" + index);
 }
 
-// RIVER
-var riverAnimation;
-var lastState = 1;
-
-function runRiverAnimation(beginState, endState, reverse = false) {
-  if (riverAnimation !== undefined) {
-    riverAnimation.destroy();
-    console.log("destroy river anim");
-  }
-  console.log("running river anim : ", beginState, "vers", endState, reverse);
-  riverAnimation = bodymovin.loadAnimation({
-    container: document.getElementById("riverContainer"),
+// PIPELINE
+function runPipelineAnimation(number) {
+  bodymovin.loadAnimation({
+    container: document.getElementById("pipelineContainer" + number),
     renderer: "svg",
-    loop: false,
-    autoplay: false,
-    path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
+    loop: true,
+    autoplay: true,
+    path: "assets/pipeline/etat" + number + ".json",
   });
-  riverAnimation.setDirection(reverse ? -1 : 1);
-  riverAnimation.play();
-  lastState = endState;
+}
+runPipelineAnimation(1);
+runPipelineAnimation(2);
+runPipelineAnimation(3);
+
+function showPipelineAnimation(index) {
+  let indexes = [1, 2, 3];
+  indexes.remove(index);
+  indexes.forEach((id) => fadeOut("pipelineContainer" + id));
+  fadeIn("pipelineContainer" + index);
 }
 
-function runRiverAnimation2(beginState, endState) {
-  console.log("running river anim : ", beginState, "vers", endState);
-  var riverAnimation2 = bodymovin.loadAnimation({
+// RIVER
+
+function runRiverAnimation() {
+  bodymovin.loadAnimation({
+    container: document.getElementById("riverContainer1"),
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    path: "assets/river/riviere-mi-pleine.json",
+  });
+}
+
+function runRiverAnimation2() {
+  bodymovin.loadAnimation({
     container: document.getElementById("riverContainer2"),
     renderer: "svg",
-    loop: false,
-    autoplay: false,
-    path: "assets/river/etat" + beginState + "-vers-etat" + endState + ".json",
+    loop: true,
+    autoplay: true,
+    path: "assets/river/riviere-pleine.json",
   });
-  riverAnimation2.setDirection(-1);
-  riverAnimation2.play();
 }
 
-// function showRiverAnimation(state) {
-//   runRiverAnimation(lastState, state, lastState < state);
-// }
+runRiverAnimation();
+runRiverAnimation2();
 
+function showRiverAnimation(index) {
+  let indexes = [1, 2];
+  indexes.remove(index);
+  indexes.forEach((id) => fadeOut("riverContainer" + id));
+  fadeIn("riverContainer" + index);
+}
+
+var fishAnim;
+function initFishAnimation() {
+  fishAnim = bodymovin.loadAnimation({
+    container: document.getElementById("fishContainer"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "assets/poissons.json",
+  });
+}
+initFishAnimation();
+
+function runFishAnimation() {
+  fishAnim.stop();
+  fishAnim.play();
+}
+
+var leavesAnim;
+function initLeavesAnimation() {
+  leavesAnim = bodymovin.loadAnimation({
+    container: document.getElementById("leavesContainer"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "assets/feuilles.json",
+  });
+}
+initLeavesAnimation();
+
+function runLeavesAnimation() {
+  leavesAnim.stop();
+  leavesAnim.play();
+}
 // BACKGROUND
 
 var backgroundElement = document.getElementById("background");

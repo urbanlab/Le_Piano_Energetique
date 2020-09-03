@@ -3,6 +3,7 @@ let socket = io();
 
 var waterScore = -1;
 var elecScore = -1;
+var heatScore = -1;
 var globalScore = -1;
 
 let currentState = {
@@ -46,12 +47,25 @@ socket.on("data", function (arduinoData) {
   processScores();
 });
 
-function processScores() {
-  // newWaterScore = Math.round((currentState.onOffWater + currentState.touchWater) / 2);
-  newWaterScore = Math.round(currentState.onOffWater);
+// TOUCH 1
+socket.on("touch1", function (value) {
+  if (value == 1) {
+    runFishAnimation();
+  }
+});
 
+// TOUCH 2
+socket.on("touch2", function (value) {
+  if (value == 1) {
+    runLeavesAnimation();
+  }
+});
+
+function processScores() {
+  newWaterScore = Math.round(currentState.onOffWater);
+  newHeatScore = Math.round(currentState.onOffHeater + currentState.valueHeater + currentState.onOffOven) / 3;
   newElecScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge) / 3);
-  newGlobalScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge + currentState.onOffWater + currentState.touchWater + currentState.onOffHeater + currentState.onOffOven + currentState.valueHeater + currentState.touchLid) / 8);
+  newGlobalScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge + currentState.onOffWater + currentState.onOffHeater + currentState.onOffOven + currentState.valueHeater) / 6);
 
   if (newElecScore != elecScore) {
     elecScore = newElecScore;
@@ -68,6 +82,11 @@ function processScores() {
     waterScore = newWaterScore;
     console.log("New Water Score : ", waterScore);
     chooseRiverAnimation();
+  }
+  if (newHeatScore != heatScore) {
+    heatScore = newHeatScore;
+    console.log("New Heat Score : ", heatScore);
+    choosePipelineAnimation();
   }
 
   displayDebug();
@@ -87,15 +106,15 @@ function choosePlantAnimation() {
   else if (elecScore.between(70, 100, true)) showPlantAnimation(1);
 }
 
-// function chooseRiverAnimation() {
-//   if (waterScore.between(0, 32, true)) showRiverAnimation(1);
-//   else if (waterScore.between(32, 70)) showRiverAnimation(2);
-//   else if (waterScore.between(70, 100, true)) showRiverAnimation(3);
-// }
+function choosePipelineAnimation() {
+  if (heatScore.between(0, 32, true)) showPipelineAnimation(3);
+  else if (heatScore.between(32, 70)) showPipelineAnimation(2);
+  else if (heatScore.between(70, 100, true)) showPipelineAnimation(1);
+}
 
 function chooseRiverAnimation() {
-  if (waterScore.between(0, 50, true)) runRiverAnimation(1, 2);
-  else if (waterScore.between(51, 100, true)) runRiverAnimation(1, 2, true);
+  if (waterScore.between(0, 50, true)) showRiverAnimation(1);
+  else if (waterScore.between(51, 100, true)) showRiverAnimation(2);
 }
 
 // DEBUG
