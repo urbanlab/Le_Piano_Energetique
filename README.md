@@ -33,3 +33,7 @@ Telecommande : 192.168.0.100:3000/teleco
 
 SSID : regime-energetique
 PASSWORD : regime2020
+
+## MISE À JOUR AFFICHAGE
+
+/V1/PUBLIC/VISU/JS/DATA.JS

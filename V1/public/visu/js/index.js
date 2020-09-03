@@ -39,43 +39,43 @@ socket.on("data", function (arduinoData) {
   const newOnOffWater = Math.round(arduinoData[3].val * 100);
   if (currentState.onOffWater != newOnOffWater) {
     currentState.onOffWater = newOnOffWater;
-    if (newOnOffWater == 100) updateSavingsDisplay("-50%", "consommation d'eau ", true, "ECOMOUSSEUR");
-    else updateSavingsDisplay("+50%", "consommation d'eau ", false, "ECOMOUSSEUR");
+    if (newOnOffWater == 100) updateSavingsDisplay(data.inter4.positive, true);
+    else updateSavingsDisplay(data.inter4.negative, false);
   }
   const newOnOffHeater = Math.round(arduinoData[2].val * 100);
   if (currentState.onOffHeater != newOnOffHeater) {
     currentState.onOffHeater = newOnOffHeater;
-    if (newOnOffHeater == 100) updateSavingsDisplay("28%", "d'économie d'énérgie ", true, "CHAUFFAGE");
-    else updateSavingsDisplay("28%", "d'énérgie dépensée en plus", false, "CHAUFFAGE");
+    if (newOnOffHeater == 100) updateSavingsDisplay(data.inter3.positive, true);
+    else updateSavingsDisplay(data.inter3.negative, false);
   }
   const newOnOffLeds = Math.round(arduinoData[0].val * 100);
   if (currentState.onOffLeds != newOnOffLeds) {
     currentState.onOffLeds = newOnOffLeds;
-    if (newOnOffLeds == 100) updateSavingsDisplay("/7", "votre consommation", true, "LEDS");
-    else updateSavingsDisplay("x7", "votre consommation", false, "LEDS");
+    if (newOnOffLeds == 100) updateSavingsDisplay(data.inter1.positive, true);
+    else updateSavingsDisplay(data.inter1.negative, false);
   }
   const newOnOffFridge = Math.round(arduinoData[4].val * 100);
   if (currentState.onOffFridge != newOnOffFridge) {
     currentState.onOffFridge = newOnOffFridge;
-    if (newOnOffFridge == 100) updateSavingsDisplay("-30%", "consommation d'énérgie ", true, "DÉGIVRER");
-    else updateSavingsDisplay("+30%", "consommation d'énérgie ", false, "DÉGIVRER");
+    if (newOnOffFridge == 100) updateSavingsDisplay(data.inter5.positive, true);
+    else updateSavingsDisplay(data.inter5.negative, false);
   }
   const newOnOffOven = Math.round(arduinoData[1].val * 100);
   if (currentState.onOffOven != newOnOffOven) {
     currentState.onOffOven = newOnOffOven;
-    if (newOnOffOven == 100) updateSavingsDisplay("", "Sauf pour les patisseries ;)", true, "NE PAS PRÉCHAUFFER");
-    else updateSavingsDisplay("", "Vous préchauffez, c'est mal!", false, "NE PAS PRÉCHAUFFER");
+    if (newOnOffOven == 100) updateSavingsDisplay(data.inter2.positive, true);
+    else updateSavingsDisplay(data.inter2.negative, false);
   }
   const newValueHeater = 100 - Math.round(arduinoData[5].val);
   if (Math.abs(currentState.valueHeater - newValueHeater) > 5) {
-    if (newValueHeater - currentState.valueHeater > 0) updateSavingsDisplay("7%", "d'économie pour 1° en moins ", true, "CHAUFFAGE");
-    else updateSavingsDisplay("7%", "d'économie pour 1° en moins ", false, "CHAUFFAGE");
+    if (newValueHeater - currentState.valueHeater > 0) updateSavingsDisplay(data.sensor1.positive, true);
+    else updateSavingsDisplay(data.sensor1.negative, false);
     currentState.valueHeater = newValueHeater;
   }
   const newValueFridge = 100 - Math.round(arduinoData[6].val);
   if (Math.abs(currentState.valueFridge - newValueFridge) > 5) {
-    if (newValueFridge - currentState.valueFridge > 0) updateSavingsDisplay("60%", "d'économie sur la classe A+++", true, "FRIGO CLASSE ENERGÉTIQUE");
-    else updateSavingsDisplay("60%", "d'économie sur la classe A+++", false, "FRIGO CLASSE ENERGÉTIQUE");
+    if (newValueFridge - currentState.valueFridge > 0) updateSavingsDisplay(data.sensor2.positive, true);
+    else updateSavingsDisplay(data.sensor2.negative, false);
     currentState.valueFridge = newValueFridge;
   }
   currentState.touchWater = Math.round(arduinoData[7].val * 100);
@@ -88,7 +88,7 @@ socket.on("data", function (arduinoData) {
 socket.on("touch1", function (value) {
   if (value == 1) {
     runFishAnimation();
-    updateSavingsDisplay("/4", "consommation d'eau durant le réglage de la température", true, "ROBINET THERMOSTATIQUE");
+    updateSavingsDisplay(data.touch1, true);
   }
 });
 
@@ -96,7 +96,7 @@ socket.on("touch1", function (value) {
 socket.on("touch2", function (value) {
   if (value == 1) {
     runLeavesAnimation();
-    updateSavingsDisplay("-70%", "d'énergie utilisée pour les liquides", true, "COUVERCLE");
+    updateSavingsDisplay(data.touch2, true);
   }
 });
 
@@ -157,19 +157,16 @@ function chooseRiverAnimation() {
 
 // SAVINGS DISPLAY
 let savingsTimeOut;
-function updateSavingsDisplay(factNumber, description, isPositiveAction = null, title = "") {
+function updateSavingsDisplay(data, isPositiveAction) {
   showSavingsDisplay();
-  document.getElementById("savingsTitle").innerHTML = title;
-  document.getElementById("savingsFactNumber").innerHTML = factNumber;
-  document.getElementById("savingsDescription").innerHTML = description;
-  if (isPositiveAction != null) {
-    isPositiveAction ? (document.getElementById("savingsContainer").style.backgroundColor = "#006837CC") : (document.getElementById("savingsContainer").style.backgroundColor = "#ed1c24CC");
-  } else {
-    document.getElementById("savingsContainer").style.backgroundColor = "#FFFFFFCC";
-  }
+  document.getElementById("savingsTitle").innerHTML = data.title;
+  document.getElementById("savingsFactNumber").innerHTML = data.number;
+  document.getElementById("savingsDescription").innerHTML = data.description;
+
+  isPositiveAction ? (document.getElementById("savingsContainer").style.backgroundColor = "#006837CC") : (document.getElementById("savingsContainer").style.backgroundColor = "#ed1c24CC");
 
   clearTimeout(savingsTimeOut);
-  // savingsTimeOut = setTimeout(hideSavingsDisplay, savingsDisplayTime);
+  savingsTimeOut = setTimeout(hideSavingsDisplay, savingsDisplayTime);
 }
 
 function showSavingsDisplay() {
