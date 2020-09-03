@@ -62,12 +62,12 @@ socket.on("data", function (arduinoData) {
     updateSavingsDisplay("", "Sauf pour les patisseries ;)");
   }
   const newValueHeater = 100 - Math.round(arduinoData[5].val);
-  if (currentState.valueHeater != newValueHeater) {
+  if (Math.abs(currentState.valueHeater - newValueHeater) > 5) {
     currentState.valueHeater = newValueHeater;
     updateSavingsDisplay("7%", "d'économie pour 1° en moins ");
   }
   const newValueFridge = 100 - Math.round(arduinoData[6].val);
-  if (currentState.valueFridge != newValueFridge) {
+  if (Math.abs(currentState.valueFridge - newValueFridge) > 5) {
     currentState.valueFridge = newValueFridge;
     updateSavingsDisplay("60%", "d'économie sur la classe A+++");
   }
