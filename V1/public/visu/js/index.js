@@ -1,6 +1,9 @@
 // let socket = io("192.168.81.27:3000");
 let socket = io();
 
+// Durée pendant laquelle l'affichage des économie est présent
+const savingsDisplayTime = 10000;
+
 var waterScore = -1;
 var elecScore = -1;
 var heatScore = -1;
@@ -32,15 +35,42 @@ var sampleArduinoData = [
   { name: "touch2", val: 0 },
 ];
 
-processScores();
 socket.on("data", function (arduinoData) {
-  currentState.onOffWater = Math.round(arduinoData[3].val * 100);
-  currentState.onOffHeater = Math.round(arduinoData[2].val * 100);
-  currentState.onOffLeds = Math.round(arduinoData[0].val * 100);
-  currentState.onOffFridge = Math.round(arduinoData[4].val * 100);
-  currentState.onOffOven = Math.round(arduinoData[1].val * 100);
-  currentState.valueHeater = 100 - Math.round(arduinoData[5].val);
-  currentState.valueFridge = 100 - Math.round(arduinoData[6].val);
+  const newOnOffWater = Math.round(arduinoData[3].val * 100);
+  if (currentState.onOffWater != newOnOffWater) {
+    currentState.onOffWater = newOnOffWater;
+    updateSavingsDisplay("-50%", "consommation d'eau ");
+  }
+  const newOnOffHeater = Math.round(arduinoData[2].val * 100);
+  if (currentState.onOffHeater != newOnOffHeater) {
+    currentState.onOffHeater = newOnOffHeater;
+    updateSavingsDisplay("28%", "d'économie d'énérgie ");
+  }
+  const newOnOffLeds = Math.round(arduinoData[0].val * 100);
+  if (currentState.onOffLeds != newOnOffLeds) {
+    currentState.onOffLeds = newOnOffLeds;
+    updateSavingsDisplay("/7", "votre consommation");
+  }
+  const newOnOffFridge = Math.round(arduinoData[4].val * 100);
+  if (currentState.onOffFridge != newOnOffFridge) {
+    currentState.onOffFridge = newOnOffFridge;
+    updateSavingsDisplay("-30%", "consommation d'énérgie ");
+  }
+  const newOnOffOven = Math.round(arduinoData[1].val * 100);
+  if (currentState.onOffOven != newOnOffOven) {
+    currentState.onOffOven = newOnOffOven;
+    updateSavingsDisplay("", "Sauf pour les patisseries ;)");
+  }
+  const newValueHeater = 100 - Math.round(arduinoData[5].val);
+  if (currentState.valueHeater != newValueHeater) {
+    currentState.valueHeater = newValueHeater;
+    updateSavingsDisplay("7%", "d'économie pour 1° en moins ");
+  }
+  const newValueFridge = 100 - Math.round(arduinoData[6].val);
+  if (currentState.valueFridge != newValueFridge) {
+    currentState.valueFridge = newValueFridge;
+    updateSavingsDisplay("60%", "d'économie sur la classe A+++");
+  }
   currentState.touchWater = Math.round(arduinoData[7].val * 100);
   currentState.touchLid = Math.round(arduinoData[8].val * 100);
 
@@ -51,6 +81,7 @@ socket.on("data", function (arduinoData) {
 socket.on("touch1", function (value) {
   if (value == 1) {
     runFishAnimation();
+    updateSavingsDisplay("/4", "consommation d'eau durant le réglage de la température");
   }
 });
 
@@ -58,6 +89,7 @@ socket.on("touch1", function (value) {
 socket.on("touch2", function (value) {
   if (value == 1) {
     runLeavesAnimation();
+    updateSavingsDisplay("-70%", "d'énergie utilisée pour les liquides");
   }
 });
 
@@ -65,7 +97,7 @@ function processScores() {
   newWaterScore = Math.round(currentState.onOffWater);
   newHeatScore = Math.round(currentState.onOffHeater + currentState.valueHeater + currentState.onOffOven) / 3;
   newElecScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge) / 3);
-  newGlobalScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge + currentState.onOffWater + currentState.onOffHeater + currentState.onOffOven + currentState.valueHeater) / 6);
+  newGlobalScore = Math.round((currentState.onOffLeds + currentState.onOffFridge + currentState.valueFridge + currentState.onOffWater + currentState.onOffHeater + currentState.onOffOven + currentState.valueHeater) / 7);
 
   if (newElecScore != elecScore) {
     elecScore = newElecScore;
@@ -93,11 +125,11 @@ function processScores() {
 }
 
 function chooseBackground() {
-  if (globalScore.between(0, 20, true)) changeBackground(4);
-  else if (globalScore.between(20, 40)) changeBackground(3);
-  else if (globalScore.between(40, 60, true)) changeBackground(2);
-  else if (globalScore.between(60, 80)) changeBackground(1);
-  else if (globalScore.between(80, 100, true)) changeBackground(0);
+  if (globalScore.between(0, 20, true)) changeBackground(5);
+  else if (globalScore.between(20, 40)) changeBackground(4);
+  else if (globalScore.between(40, 60, true)) changeBackground(3);
+  else if (globalScore.between(60, 80)) changeBackground(2);
+  else if (globalScore.between(80, 100, true)) changeBackground(1);
 }
 
 function choosePlantAnimation() {
@@ -115,6 +147,24 @@ function choosePipelineAnimation() {
 function chooseRiverAnimation() {
   if (waterScore.between(0, 50, true)) showRiverAnimation(1);
   else if (waterScore.between(51, 100, true)) showRiverAnimation(2);
+}
+
+// SAVINGS DISPLAY
+let savingsTimeOut;
+function updateSavingsDisplay(factNumber, description) {
+  showSavingsDisplay();
+  document.getElementById("savingsFactNumber").innerHTML = factNumber;
+  document.getElementById("savingsDescription").innerHTML = description;
+  clearTimeout(savingsTimeOut);
+  savingsTimeOut = setTimeout(hideSavingsDisplay, savingsDisplayTime);
+}
+
+function showSavingsDisplay() {
+  fadeIn("savingsContainer");
+}
+
+function hideSavingsDisplay() {
+  fadeOut("savingsContainer");
 }
 
 // DEBUG

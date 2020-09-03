@@ -147,14 +147,21 @@ function backgroundSequence() {
 }
 
 var lastBackground = -1;
+// function changeBackground(index) {
+//   if (lastBackground != index) {
+//     console.log("showing background : ", index + 1);
+//     lastBackground = index;
+//     window.clearTimeout();
+//     backgroundElement.style.background = "url(" + localBase + localImageArray[index] + " ) no-repeat center center fixed";
+//     backgroundElement.style.backgroundSize = "contain";
+//   }
+// }
+
 function changeBackground(index) {
-  if (lastBackground != index) {
-    console.log("showing background : ", index + 1);
-    lastBackground = index;
-    window.clearTimeout();
-    backgroundElement.style.background = "url(" + localBase + localImageArray[index] + " ) no-repeat center center fixed";
-    backgroundElement.style.backgroundSize = "contain";
-  }
+  let indexes = [1, 2, 3, 4, 5];
+  indexes.remove(index);
+  fadeIn("background" + index);
+  indexes.forEach((id) => fadeOut("background" + id));
 }
 
 // TRANSITIONS

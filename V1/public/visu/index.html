@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet" />
     <link rel="stylesheet" href="styles/index.css" />
     <script src="js/lib/socket.io.js"></script>
     <script src="js/lib/lottie.min.js"></script>
   </head>
   <body>
-    <div id="background"></div>
+    <!-- <div id="background"></div> -->
+    <div id="background1"></div>
+    <div id="background2"></div>
+    <div id="background3"></div>
+    <div id="background4"></div>
+    <div id="background5"></div>
 
     <div id="plantContainer1"></div>
     <div id="plantContainer2"></div>
@@ -25,6 +31,11 @@
 
     <div id="fishContainer"></div>
     <div id="leavesContainer"></div>
+
+    <div id="savingsContainer" class="hide">
+      <label id="savingsFactNumber"> -70 %</label>
+      <label id="savingsDescription"> d'énergie utilisée pour les liquides</label>
+    </div>
 
     <div id="debugContainer" class="hide" onclick="toggleDebug();">
       <label id="globalScore"> </label><br />
