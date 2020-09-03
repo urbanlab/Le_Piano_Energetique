@@ -85,6 +85,9 @@ body {
 }
 
 #savingsContainer {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 16px;
   width: auto;
@@ -95,18 +98,36 @@ body {
   margin: 32px;
   padding: 20px 0px 20px 20px;
   font-family: "Roboto Mono";
-  color: #006837;
+  color: white;
+}
+
+#savingsTitle {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  /* background-color: royalblue; */
+  font-size: 24pt;
+  font-weight: bolder;
+  margin-bottom: 20px;
+  margin-right: 15px;
+  text-align: center;
 }
 
 #savingsFactNumber {
+  grid-row: 2 / 2;
   display: inline-block;
   vertical-align: top;
-  font-size: 35pt;
+  font-size: 100pt;
+  line-height: 80pt;
+  /* background-color: silver; */
 }
 
 #savingsDescription {
+  grid-row: 2 / 2;
   display: inline-block;
-  font-size: 15pt;
-  max-width: 200px;
-  margin-left: 15px;
+  vertical-align: middle;
+
+  font-size: 25pt;
+  max-width: 500px;
+  margin: 0 15px;
+  /* background-color: teal; */
 }

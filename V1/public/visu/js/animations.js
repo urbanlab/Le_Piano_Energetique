@@ -119,44 +119,6 @@ function runLeavesAnimation() {
 }
 // BACKGROUND
 
-var backgroundElement = document.getElementById("background");
-(localImageArray = ["1.png", "2.png", "3.png", "4.png", "5.png"]), (localBase = "/visu/assets/backgrounds/");
-secs = 5;
-localImageArray.forEach(function (img) {
-  new Image().src = localBase + img;
-  // caches images, avoiding white flash between background replacements
-});
-
-function backgroundSequence() {
-  window.clearTimeout();
-  var k = 0;
-  for (i = 0; i < localImageArray.length; i++) {
-    setTimeout(function () {
-      // document.documentElement.style.background = "url(" + base + bgImageArray[k] + ") no-repeat center center fixed";
-      backgroundElement.style.background = "url(" + localBase + localImageArray[k] + " ) no-repeat center center fixed";
-      backgroundElement.style.backgroundSize = "contain";
-      if (k + 1 === localImageArray.length) {
-        setTimeout(function () {
-          backgroundSequence();
-        }, secs * 1000);
-      } else {
-        k++;
-      }
-    }, secs * 1000 * i);
-  }
-}
-
-var lastBackground = -1;
-// function changeBackground(index) {
-//   if (lastBackground != index) {
-//     console.log("showing background : ", index + 1);
-//     lastBackground = index;
-//     window.clearTimeout();
-//     backgroundElement.style.background = "url(" + localBase + localImageArray[index] + " ) no-repeat center center fixed";
-//     backgroundElement.style.backgroundSize = "contain";
-//   }
-// }
-
 function changeBackground(index) {
   let indexes = [1, 2, 3, 4, 5];
   indexes.remove(index);

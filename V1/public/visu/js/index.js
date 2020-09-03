@@ -39,37 +39,44 @@ socket.on("data", function (arduinoData) {
   const newOnOffWater = Math.round(arduinoData[3].val * 100);
   if (currentState.onOffWater != newOnOffWater) {
     currentState.onOffWater = newOnOffWater;
-    updateSavingsDisplay("-50%", "consommation d'eau ");
+    if (newOnOffWater == 100) updateSavingsDisplay("-50%", "consommation d'eau ", true, "ECOMOUSSEUR");
+    else updateSavingsDisplay("+50%", "consommation d'eau ", false, "ECOMOUSSEUR");
   }
   const newOnOffHeater = Math.round(arduinoData[2].val * 100);
   if (currentState.onOffHeater != newOnOffHeater) {
     currentState.onOffHeater = newOnOffHeater;
-    updateSavingsDisplay("28%", "d'économie d'énérgie ");
+    if (newOnOffHeater == 100) updateSavingsDisplay("28%", "d'économie d'énérgie ", true, "CHAUFFAGE");
+    else updateSavingsDisplay("28%", "d'énérgie dépensée en plus", false, "CHAUFFAGE");
   }
   const newOnOffLeds = Math.round(arduinoData[0].val * 100);
   if (currentState.onOffLeds != newOnOffLeds) {
     currentState.onOffLeds = newOnOffLeds;
-    updateSavingsDisplay("/7", "votre consommation");
+    if (newOnOffLeds == 100) updateSavingsDisplay("/7", "votre consommation", true, "LEDS");
+    else updateSavingsDisplay("x7", "votre consommation", false, "LEDS");
   }
   const newOnOffFridge = Math.round(arduinoData[4].val * 100);
   if (currentState.onOffFridge != newOnOffFridge) {
     currentState.onOffFridge = newOnOffFridge;
-    updateSavingsDisplay("-30%", "consommation d'énérgie ");
+    if (newOnOffFridge == 100) updateSavingsDisplay("-30%", "consommation d'énérgie ", true, "DÉGIVRER");
+    else updateSavingsDisplay("+30%", "consommation d'énérgie ", false, "DÉGIVRER");
   }
   const newOnOffOven = Math.round(arduinoData[1].val * 100);
   if (currentState.onOffOven != newOnOffOven) {
     currentState.onOffOven = newOnOffOven;
-    updateSavingsDisplay("", "Sauf pour les patisseries ;)");
+    if (newOnOffOven == 100) updateSavingsDisplay("", "Sauf pour les patisseries ;)", true, "NE PAS PRÉCHAUFFER");
+    else updateSavingsDisplay("", "Vous préchauffez, c'est mal!", false, "NE PAS PRÉCHAUFFER");
   }
   const newValueHeater = 100 - Math.round(arduinoData[5].val);
   if (Math.abs(currentState.valueHeater - newValueHeater) > 5) {
+    if (newValueHeater - currentState.valueHeater > 0) updateSavingsDisplay("7%", "d'économie pour 1° en moins ", true, "CHAUFFAGE");
+    else updateSavingsDisplay("7%", "d'économie pour 1° en moins ", false, "CHAUFFAGE");
     currentState.valueHeater = newValueHeater;
-    updateSavingsDisplay("7%", "d'économie pour 1° en moins ");
   }
   const newValueFridge = 100 - Math.round(arduinoData[6].val);
   if (Math.abs(currentState.valueFridge - newValueFridge) > 5) {
+    if (newValueFridge - currentState.valueFridge > 0) updateSavingsDisplay("60%", "d'économie sur la classe A+++", true, "FRIGO CLASSE ENERGÉTIQUE");
+    else updateSavingsDisplay("60%", "d'économie sur la classe A+++", false, "FRIGO CLASSE ENERGÉTIQUE");
     currentState.valueFridge = newValueFridge;
-    updateSavingsDisplay("60%", "d'économie sur la classe A+++");
   }
   currentState.touchWater = Math.round(arduinoData[7].val * 100);
   currentState.touchLid = Math.round(arduinoData[8].val * 100);
@@ -81,7 +88,7 @@ socket.on("data", function (arduinoData) {
 socket.on("touch1", function (value) {
   if (value == 1) {
     runFishAnimation();
-    updateSavingsDisplay("/4", "consommation d'eau durant le réglage de la température");
+    updateSavingsDisplay("/4", "consommation d'eau durant le réglage de la température", true, "ROBINET THERMOSTATIQUE");
   }
 });
 
@@ -89,7 +96,7 @@ socket.on("touch1", function (value) {
 socket.on("touch2", function (value) {
   if (value == 1) {
     runLeavesAnimation();
-    updateSavingsDisplay("-70%", "d'énergie utilisée pour les liquides");
+    updateSavingsDisplay("-70%", "d'énergie utilisée pour les liquides", true, "COUVERCLE");
   }
 });
 
@@ -107,7 +114,6 @@ function processScores() {
   if (newGlobalScore != globalScore) {
     globalScore = newGlobalScore;
     console.log("New Global Score : ", globalScore);
-    console.log(currentState);
     chooseBackground();
   }
   if (newWaterScore != waterScore) {
@@ -151,12 +157,19 @@ function chooseRiverAnimation() {
 
 // SAVINGS DISPLAY
 let savingsTimeOut;
-function updateSavingsDisplay(factNumber, description) {
+function updateSavingsDisplay(factNumber, description, isPositiveAction = null, title = "") {
   showSavingsDisplay();
+  document.getElementById("savingsTitle").innerHTML = title;
   document.getElementById("savingsFactNumber").innerHTML = factNumber;
   document.getElementById("savingsDescription").innerHTML = description;
+  if (isPositiveAction != null) {
+    isPositiveAction ? (document.getElementById("savingsContainer").style.backgroundColor = "#006837CC") : (document.getElementById("savingsContainer").style.backgroundColor = "#ed1c24CC");
+  } else {
+    document.getElementById("savingsContainer").style.backgroundColor = "#FFFFFFCC";
+  }
+
   clearTimeout(savingsTimeOut);
-  savingsTimeOut = setTimeout(hideSavingsDisplay, savingsDisplayTime);
+  // savingsTimeOut = setTimeout(hideSavingsDisplay, savingsDisplayTime);
 }
 
 function showSavingsDisplay() {
