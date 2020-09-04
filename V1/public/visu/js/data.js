@@ -21,7 +21,7 @@ data = {
     negative: {
       title: "PRÉCHAUFFER LE FOUR",
       number: "",
-      description: "Vous préchauffez, c'est mal!"
+      description: "Vous préchauffez, c'est mal !"
     },
   },
   inter3: {
@@ -40,24 +40,24 @@ data = {
     positive: {
       title: "METTRE UN ECOMOUSSEUR",
       number: "-50%",
-      description: "consommation d'eau"
+      description: "de consommation d'eau"
     },
     negative: {
-      title: "NE PAS METTRE UN ECOMOUSSEUR",
+      title: "NE PAS METTRE D'ECOMOUSSEUR",
       number: "+50%",
-      description: "consommation d'eau"
+      description: "de consommation d'eau"
     },
   },
   inter5: {
     positive: {
       title: "DÉGIVRER SON FRIGO RÉGULIÈREMENT",
       number: "-30%",
-      description: "consommation d'énérgie"
+      description: "de consommation d'énérgie"
     },
     negative: {
       title: "NE PAS DÉGIVRER SON FRIGO RÉGULIÈREMENT",
       number: "+30%",
-      description: "consommation d'énérgie"
+      description: "de consommation d'énérgie"
     },
   },
   sensor1: {
@@ -67,7 +67,7 @@ data = {
       description: "d'économie pour 1° en moins"
     },
     negative: {
-      title: "MONTER CHAUFFAGE",
+      title: "MONTER LE CHAUFFAGE",
       number: "7%",
       description: "de consommation en plus pour 1° en plus"
     },
@@ -81,13 +81,13 @@ data = {
     negative: {
       title: "GARDER SON ANCIEN FRIGO",
       number: "60%",
-      description: "de consommation sur la classe C"
+      description: "de consommation en plus sur la classe C"
     },
   },
   touch1: {
     title: "METTRE UN ROBINET THERMOSTATIQUE",
     number: "/4",
-    description: "consommation d'eau durant le réglage de la température",
+    description: "votre consommation d'eau durant le réglage de la température",
   },
   touch2: {
     title: "METTRE LE COUVERCLE",
