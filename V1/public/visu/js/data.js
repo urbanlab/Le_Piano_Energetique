@@ -2,95 +2,95 @@
 data = {
   inter1: {
     positive: {
-      title: "LEDS",
+      title: "METTRE DES LEDS",
       number: "/7",
       description: "votre consommation",
     },
     negative: {
-      title: "LEDS",
+      title: "NE PAS METTRE DE LEDS",
       number: "x7",
       description: "votre consommation"
     },
   },
   inter2: {
     positive: {
-      title: "FOUR",
+      title: "NE PAS PRÉCHAUFFER LE FOUR",
       number: "",
       description: "Sauf pour les patisseries ;)"
     },
     negative: {
-      title: "FOUR",
+      title: "PRÉCHAUFFER LE FOUR",
       number: "",
       description: "Vous préchauffez, c'est mal!"
     },
   },
   inter3: {
     positive: {
-      title: "CHAUFFAGE",
+      title: "METTRE UNE VANNE THERMOSTATIQUE POUR LE CHAUFFAGE",
       number: "28%",
       description: "d'économie d'énérgie "
     },
     negative: {
-      title: "CHAUFFAGE",
+      title: "NE PAS METTRE DE VANNE THERMOSTATIQUE",
       number: "28%",
       description: "d'énergie dépensée en plus"
     },
   },
   inter4: {
     positive: {
-      title: "ECOMOUSSEUR",
+      title: "METTRE UN ECOMOUSSEUR",
       number: "-50%",
       description: "consommation d'eau"
     },
     negative: {
-      title: "ECOMOUSSEUR",
+      title: "NE PAS METTRE UN ECOMOUSSEUR",
       number: "+50%",
       description: "consommation d'eau"
     },
   },
   inter5: {
     positive: {
-      title: "DÉGIVRER SON FRIGO",
+      title: "DÉGIVRER SON FRIGO RÉGULIÈREMENT",
       number: "-30%",
       description: "consommation d'énérgie"
     },
     negative: {
-      title: "DÉGIVRER SON FRIGO",
+      title: "NE PAS DÉGIVRER SON FRIGO RÉGULIÈREMENT",
       number: "+30%",
       description: "consommation d'énérgie"
     },
   },
   sensor1: {
     positive: {
-      title: "CHAUFFAGE",
+      title: "BAISSER LE CHAUFFAGE",
       number: "7%",
       description: "d'économie pour 1° en moins"
     },
     negative: {
-      title: "CHAUFFAGE",
+      title: "MONTER CHAUFFAGE",
       number: "7%",
-      description: "d'économie pour 1° en plus"
+      description: "de consommation en plus pour 1° en plus"
     },
   },
   sensor2: {
     positive: {
-      title: "FRIGO CLASSE ENERGÉTIQUE",
+      title: "CHANGER DE FRIGO",
       number: "60%",
       description: "d'économie sur la classe A+++"
     },
     negative: {
-      title: "FRIGO CLASSE ENERGÉTIQUE",
+      title: "GARDER SON ANCIEN FRIGO",
       number: "60%",
-      description: "d'économie sur la classe A+++"
+      description: "de consommation sur la classe C"
     },
   },
   touch1: {
-    title: "ROBINET THERMOSTATIQUE",
+    title: "METTRE UN ROBINET THERMOSTATIQUE",
     number: "/4",
     description: "consommation d'eau durant le réglage de la température",
   },
   touch2: {
-    title: "COUVERCLE",
+    title: "METTRE LE COUVERCLE",
     number: "-70%",
     description: "d'énergie utilisée pour les liquides",
   },
